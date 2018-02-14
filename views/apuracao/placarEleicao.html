@@ -86,7 +86,9 @@
                                         id="cidade"
                                         class="form-control"
                                         required>
-                                        <option ng-value="99" ng-selected="param.ano == 2014">Acre</option>
+                                        <option ng-value="99" 
+                                            ng-selected="param.ano == 2014" 
+                                            ng-disabled="param.ano == 2016">Acre</option>
                                         <option ng-selected="param.ano == c.id" ng-repeat="c in cidade" value="{{c.id}}" >{{ c.nome }}</option>
                                     </select>
                                 </div>
@@ -264,6 +266,7 @@
                                                         results.dep_federais_loading ||
                                                         results.dep_estaduais_loading">
                                     <img src="assets/img/spinner.gif">
+                                    <p>Aguarde, processando...</p>
                                 </div>
 
                                 <div class="list-content-candidates" 
@@ -369,73 +372,81 @@
 
                             <div class="col-md-6 m-t-35 m-b-30 avatares" 
                                 ng-if="quantitativos.results.prefeitos">
-                                <h4 class="sub-title-candidate">PREFEITO</h4>
-                                <div class="box"
-                                ng-repeat="prefeito in prefeitos.results">
-                                    <div class="candidate-avatar-type-big avatar-left"
-                                        ng-if="$index==0">
-                                        <div class="candidate-mask">
-                                            <img class="candidate-image" 
-                                                ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
-                                        </div>
-                                        <div class="candidate-status"
-                                            ng-if="prefeito.eleito">ELEITO</div>
-                                        <div class="candidate-status"
-                                            ng-if="prefeito.eleito==2">REELEITO</div>
-                                        <div class="candidate-votes">
-                                            <span 
-                                                ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
-                                            <span class="percent">%</span>
-                                        </div>
-                                        <div class="candidate-name" 
-                                            ng-bind="prefeito.nomevotavel"></div>
-                                        <div class="candidate-party situation-2"
-                                            ng-bind="prefeito.partido"></div>
-                                        <div class="candidate-total-votes">
-                                            <span ng-bind="prefeito.votos|number:0"></span> 
-                                            <span class="candidate-total-votes-label">votos</span>
-                                        </div>
-                                    </div>
-                                    <div class="candidate-avatar-type-big avatar-right"
-                                        ng-if="$index==1">
-                                        <div class="candidate-mask">
-                                            <img class="candidate-image" 
-                                                ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
-                                        </div>
-                                        <div class="candidate-votes">
-                                            <span 
-                                                ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
-                                            <span class="percent">%</span>
-                                        </div>
-                                        <div class="candidate-name"
-                                            ng-bind="prefeito.nomevotavel"></div>
-                                        <div class="candidate-party situation-2"
-                                            ng-bind="prefeito.partido"></div>
-                                        <div class="candidate-total-votes">
-                                            <span ng-bind="prefeito.votos|number:0"></span> 
-                                            <span class="candidate-total-votes-label">votos</span>
-                                        </div>
-                                    </div>
+
+                                <div class="loading" ng-if="results.loading">
+                                    <img src="assets/img/spinner.gif">
+                                    <p>Aguarde, processando...</p>
                                 </div>
-                                <div class="avatares-bg"></div>
-                                <div class="list-content">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr ng-repeat="prefeito in prefeitos.results"
-                                                ng-if="$index>=2 && $index<=6">
-                                                <td>
-                                                    <div class="candidate-mask">
-                                                        <img class="candidate-image" 
-                                                            ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
-                                                    </div>
-                                                </td>
-                                                <td ng-bind="prefeito.nomevotavel"></td>
-                                                <td ng-bind="prefeito.partido"></td>
-                                                <td ng-bind="prefeito.votos|number:0"></td>
-                                                <td ng-bind="((prefeito.votos*100)/pvv|number:2)+'%'"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                                <div class="components" ng-if="!results.loading">
+                                    <h4 class="sub-title-candidate">PREFEITO</h4>
+                                    <div class="box"
+                                    ng-repeat="prefeito in prefeitos.results">
+                                        <div class="candidate-avatar-type-big avatar-left"
+                                            ng-if="$index==0">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                            </div>
+                                            <div class="candidate-status"
+                                                ng-if="prefeito.eleito">ELEITO</div>
+                                            <div class="candidate-status"
+                                                ng-if="prefeito.eleito==2">REELEITO</div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name" 
+                                                ng-bind="prefeito.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="prefeito.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="prefeito.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                        <div class="candidate-avatar-type-big avatar-right"
+                                            ng-if="$index==1">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                            </div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name"
+                                                ng-bind="prefeito.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="prefeito.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="prefeito.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="avatares-bg"></div>
+                                    <div class="list-content">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="prefeito in prefeitos.results"
+                                                    ng-if="$index>=2 && $index<=6">
+                                                    <td>
+                                                        <div class="candidate-mask">
+                                                            <img class="candidate-image" 
+                                                                ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-bind="prefeito.nomevotavel"></td>
+                                                    <td ng-bind="prefeito.partido"></td>
+                                                    <td ng-bind="prefeito.votos|number:0"></td>
+                                                    <td ng-bind="((prefeito.votos*100)/pvv|number:2)+'%'"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 m-t-35 m-b-30 avatares" 
@@ -459,7 +470,8 @@
                                 </div>
 
                                 <div class="loading" ng-if="results.loading">
-                                  <img src="assets/img/spinner.gif">
+                                    <img src="assets/img/spinner.gif">
+                                    <p>Aguarde, processando...</p>
                                 </div>
 
                                 <div class="list-content-candidates" 
