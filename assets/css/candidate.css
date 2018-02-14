@@ -1,0 +1,325 @@
+/*css apuracao*/
+.box-candidate{
+    
+}
+.percentage{
+    font-size: 14px;
+    margin-left: -5px
+}
+
+.sub-title-candidate{
+    color: #666;
+    padding-top: 10px;
+    letter-spacing: .05em;
+    padding-bottom: 0;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    text-align: center;
+    padding-right: 30px;
+}
+.avatares{
+    position: relative;
+    min-height: 209px;
+}
+.avatares .avatares-bg {
+    background-color: rgba(200,200,200,0.0925);
+    border-top: 2px solid #ddd;
+    width: 100%;
+    height: 162px;
+    position: relative;
+    top: 47px;
+    z-index: 0;
+}
+.candidate-avatar-type-big{
+    width: 50%;
+    float: left;
+    position: relative;
+    z-index: 5;
+    text-align: center;
+}
+.candidate-avatar-type-big .candidate-mask {
+    width: 100px;
+    height: 100px;
+}
+.candidate-avatar-type-big .candidate-mask {
+    border: 5px solid #cacaca;
+    background-color: #fff;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+.candidate-avatar-type-big .candidate-status {
+    visibility: visible;
+    background-color: #ea0e39;
+    margin: 0 auto;
+    padding: 0 8px;
+    display: inline-block;
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    top: -18px;
+    font-weight: 700;
+    border-radius: 11px;
+    height: 23px;
+    line-height: 25px;
+}
+.candidate-avatar-type-big .candidate-votes {
+    letter-spacing: -.05em;
+    font-size: 1.75em;
+    color: #2a8bea;
+    display: block;
+    line-height: 25px;
+    padding-left: 15px;
+    position: absolute;
+    width: 100%;
+    font-style: normal;
+    font-weight: 700;
+    top: 109px;
+}
+.candidate-avatar-type-big .percent {
+    font-size: 16px;
+    position: relative;
+    right: 3px;
+    font-style: normal;
+    font-weight: 400;
+}
+.candidate-avatar-type-big .candidate-name {
+    font-size: 1.25em;
+    display: block;
+    letter-spacing: -.03em;
+    line-height: 19px;
+    margin-bottom: 12px;
+    font-style: normal;
+    font-weight: 700;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 140px;
+}
+
+.candidate-avatar-type-big .candidate-party {
+    font-size: 12px;
+    color: #555;
+    position: absolute;
+    top: 53px;
+    font-style: normal;
+    font-weight: 400;
+}
+.candidate-avatar-type-big .candidate-total-votes, .candidate-avatar-type-big .candidate-total-votes-label {
+    color: #555;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 400;
+}
+.candidate-avatar-type-big .candidate-total-votes {
+    font-size: 11px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 174px;
+}
+
+.avatar-left .candidate-party {
+    left: 50%;
+}
+
+.avatar-right .candidate-party {
+    right: 50%;
+}
+
+.avatares .loading{
+    text-align: center;
+    top: 50%;
+    margin-top: 150px;
+}
+.councilman-header{
+    width: 100%;
+    display: block;
+    margin-top: 48px;
+    background-color: rgba(200,200,200,0.0925);
+    border-top: 2px solid #ddd;
+    height: 42px;
+}
+.councilman-header .nav-tabs-hr{
+    margin-top: -2px;
+}
+.councilman-header .nav-tabs{
+    border-bottom: none;
+}
+.councilman-header .nav-tabs>li.active>a{
+    color: #2a8bea;
+    text-transform: uppercase;
+    border-top: 2px solid #2a8bea;
+    border-radius: 0;
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 11px 15px;
+}
+.councilman-header .nav-tabs>li>a{
+    padding: 11px 15px;
+    text-transform: uppercase;
+}
+
+.councilman-header .nav-tabs>li>a:hover{
+     color: #2a8bea;
+    text-transform: uppercase;
+    border-top: 2px solid #2a8bea;
+    border-radius: 0;
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 11px 15px;
+}
+
+.list-content{
+    display: block;
+    margin-top: 60px;
+}
+.list-content .candidate-mask{
+    border: 3px solid #cacaca;
+    background-color: #fff;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+}
+.list-content .candidate-mask img{
+    width: 48px;
+    vertical-align: top;
+}
+
+.list-content-candidates{
+    display: block;
+    margin-top: 0px;
+    min-height: 568px;
+    max-height: 580px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.list-content-candidates .elected{
+    font-size: .625em;
+    position: relative;
+    background-color: #ea0e39;
+    overflow: hidden;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: 700;
+    padding: 2px 10px;
+    z-index: 1;
+}
+.elected{
+    font-size: .625em;
+    position: relative;
+    background-color: #ea0e39;
+    overflow: hidden;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: 700;
+    padding: 2px 10px;
+    z-index: 1;
+}
+.votes-count .label {
+    color: #666;
+    display: block;
+    font-size: 11px;
+    text-align: left;
+    padding-left: 0;
+}
+.votes-count .total {
+    font-style: normal;
+    font-weight: 400;
+    color: #000;
+    margin-right: 5px;
+}
+.votes-count .percent {
+    font-style: normal;
+    font-weight: 700;
+}
+.votes-count .legend {
+    display: block;
+    color: #999;
+    font-size: 11px;
+}
+
+@media (max-width: 768px) {
+    .progress{
+        width: 100%;
+    }
+    .qtd-eleitores{
+        position: relative !important;
+        top: -10px !important;
+        left: 0 !important;
+    }
+    .qtd-percent-urnas{
+        font-size: 18px;
+        margin-top: 33px;
+        margin-left: 5px;
+    }
+    .qtd-percent-title{
+        margin-top: 20px;
+    }
+    .candidate-avatar-type-big .candidate-image {
+        width: 64px;
+    }
+    .avatar-left .candidate-party{
+        left: 0;
+        position: relative;
+    }
+    .avatar-right .candidate-party{
+        right: 0;
+        position: relative;
+        top: 76px;
+    }
+    .candidate-avatar-type-big .candidate-name{
+        font-size: 1.05em;
+    }
+    .candidate-avatar-type-big .candidate-status{
+        top: -10px;
+    }
+    .list-content .candidate-mask img{
+        width: 38px;
+    }
+    .sub-title-candidate{
+        top: -45px;
+    }
+    .votes-count .col-md-4{
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 1200px){
+    .candidate-avatar-type-big .candidate-mask {
+        width: 100px;
+        height: 100px;
+    }
+    .candidate-avatar-type-big .candidate-image {
+        width: 90px;
+    }
+    .candidate-avatar-type-big .candidate-party {
+        top: 57px;
+        margin-left: 57px;
+    }
+    .avatar-right .candidate-party {
+        margin-right: 57px;
+    }
+}

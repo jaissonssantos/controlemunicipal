@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase">Informação</h4>
+</div>
+<div class="modal-body">
+   <p ng-bind="info.message"></p>
+</div>
+<div class="modal-footer">
+
+	<button class="btn btn-sm btn-primary" 
+		type="button" 
+		ng-disabled="status.loading"
+		ng-click="ok()"> 
+		<i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> Sim</button>
+</div>

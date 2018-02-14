@@ -1,0 +1,150 @@
+<!-- sidebar left start-->
+<div class="sidebar-left" ng-controller="templateController" ng-init="load()">
+    <!--responsive view logo start-->
+    <div class="logo dark-logo-bg visible-xs-* visible-sm-*">
+        <a href="index.html">
+            <img src="assets/img/logo-icon.png" alt="">
+            <!--<i class="fa fa-maxcdn"></i>-->
+            <span class="brand-name">SlickLab</span>
+        </a>
+    </div>
+    <!--responsive view logo end-->
+
+    <div class="sidebar-left-info">
+        <!-- visible small devices start-->
+        <div class=" search-field">  </div>
+        <!-- visible small devices end-->
+
+        <!--sidebar nav start-->
+        <ul class="nav nav-pills nav-stacked side-navigation">
+            <li>
+                <h3 class="navigation-title">Principal</h3>
+            </li>
+            <li><a href="/dashboard" data-slug="dashboard"><i class="material-icons md-18">dashboard</i> <span>Placar Eleitoral</span></a></li>
+            <li ng-if="authenticated.user.perfil>=1 && authenticated.user.perfil<=2">
+                <h3 class="navigation-title">Ações</h3>
+            </li>
+            <li ng-if="authenticated.user.perfil==1 || authenticated.user.perfil==2" 
+                class="menu-list">
+                <a href="" navsidebar><i class="material-icons">apps</i> <span>Cadastros</span></a>
+                <ul class="child-list">
+                    <li><a href="advogado" data-slug="subnav-advogado"> Advogado</a></li>
+                    <li><a href="candidato"> Candidato</a></li>
+                    <li><a href="coordenador"> Coordenador</a></li>
+                    <li><a href="delegado"> Delegado</a></li>
+                    <li><a href="fiscal"> Fiscal</a></li>
+                </ul>
+            </li>
+            <li ng-if="authenticated.user.perfil==1 || authenticated.user.perfil==2" 
+                class="menu-list">
+                <a href="" navsidebar><i class="material-icons">plus_one</i> <span>Eleições 2016</span></a>
+                <ul class="child-list">
+                    <li><a href="associar/advogado/add"> Associar advogado</a></li>
+                    <li><a href="associar/coordenador/add"> Associar coordenador</a></li>
+                    <li><a href="associar/delegado/add"> Associar delegado</a></li>
+                    <li><a href="associar/fiscal/add"> Associar fiscal</a></li>
+                </ul>
+            </li>
+            <li ng-if="authenticated.user.perfil==1 || authenticated.user.perfil==2">
+                <a href="mapa"><i class="material-icons">room</i> <span>Mapa</span></a>
+            </li>
+
+            <li ng-if="authenticated.user.perfil>=1 && authenticated.user.perfil<=2" class="menu-list">
+                <a href="" navsidebar><i class="material-icons">list</i> <span>Relatórios</span></a>
+                <ul class="child-list">
+                    <li><a href="relatorio/advogado"> Geral Advogados</a></li>
+                    <li><a href="relatorio/coordenador"> Geral Coordenadores</a></li>
+                    <li><a href="relatorio/delegado"> Geral Delegados</a></li>
+                    <li><a href="relatorio/fiscal"> Geral Fiscais</a></li>
+                    <li ng-if="regional">
+                        <a href="relatorio/regionalrb"> Regionais de Rio Branco</a>
+                    </li>
+                    <li><a href="relatorio/voluntarios"> Locais por Voluntário</a></li>
+                    <li><a href="relatorio/local"> Local de Votação</a></li>
+                    <li ng-if="regional">
+                        <a href="relatorio/geralporregional"> Geral Por Regional</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <h3 class="navigation-title">Resultado</h3>
+            </li>
+
+            <li class="menu-list" ng-if="regional && interior">
+                <a href="" navsidebar><i class="material-icons">show_chart</i><span>Apuração 2014</span></a>
+                <ul class="child-list">
+                    <li><a href="apuracao/2014cargogeral"> Cargo/Geral</a></li>
+                    <li><a href="apuracao/2014cargosecao"> Cargo/Seção</a></li>
+                    <li><a href="apuracao/2014partido"> Partido</a></li>
+                    <li><a href="apuracao/2014partidocargo"> Partido/Cargo</a></li>
+                    <li><a href="apuracao/mapavotacaome"> Mapa - Tião x Bittar</a></li>
+                    <li><a href="apuracao/mapavotacaomo"> Mapa - Tião x Oposição</a></li>
+                </ul>
+            </li>
+
+            <li class="menu-list" ng-if="regional && interior">
+                <a href="" navsidebar><i class="material-icons">show_chart</i><span>Apuração 2016</span></a>
+                <ul class="child-list">
+                    <li><a href="apuracao/1turnoprefeitomunicipio"> Prefeito/Geral</a></li>
+                    <li><a href="apuracao/1turnoprefeitoregional"> Prefeito/Regional</a></li>
+                    <li><a href="apuracao/1turnoprefeitosecao"> Prefeito/Seção</a></li>
+                    <li><a href="apuracao/1turnovereadormunicipio"> Vereador/Geral</a></li>
+                    <li><a href="apuracao/1turnovereadorregional"> Vereador/Regional</a></li>
+                    <li><a href="apuracao/1turnovereadorsecao"> Vereador/Seção</a></li>
+                    <li><a href="apuracao/1turnopartido"> Partido</a></li>
+                    <li><a href="apuracao/1turnopartidovereador"> Partido/Vereador</a></li>
+                    <li><a href="apuracao/1turnocoligacao"> Coligação</a></li>
+                    <li><a href="apuracao/mapavotacaome"> Mapa - Marcus x Eliane</a></li>
+                    <li><a href="apuracao/mapavotacaomo"> Mapa - Marcus x Oposição</a></li>
+                </ul>
+            </li>
+
+            <li class="menu-list" ng-if="regional && !interior">
+                <a href="" navsidebar><i class="material-icons">show_chart</i><span>Apuração 2016</span></a>
+                <ul class="child-list">
+                    <li><a href="apuracao/1turnoprefeitoregional"> Prefeito/Regional</a></li>
+                    <li><a href="apuracao/1turnoprefeitosecao"> Prefeito/Seção</a></li>
+                    <li><a href="apuracao/1turnovereadorregional"> Vereador/Regional</a></li>
+                    <li><a href="apuracao/1turnovereadorsecao"> Vereador/Seção</a></li>
+                    <li><a href="apuracao/1turnopartido"> Partido</a></li>
+                    <li><a href="apuracao/1turnopartidovereador"> Partido/Vereador</a></li>
+                    <li><a href="apuracao/1turnocoligacao"> Coligação</a></li>
+                    <li><a href="apuracao/mapavotacaome"> Mapa - Marcus x Eliane</a></li>
+                    <li><a href="apuracao/mapavotacaomo"> Mapa - Marcus x Oposição</a></li>
+                </ul>
+            </li>
+
+            <li class="menu-list" ng-if="!regional && interior">
+                <a href="" navsidebar><i class="material-icons">show_chart</i><span>Apuração 2016</span></a>
+                <ul class="child-list">
+                    <li><a href="apuracao/1turnoprefeitomunicipio"> Prefeito/Geral</a></li>
+                    <li><a href="apuracao/1turnoprefeitosecao"> Prefeito/Seção</a></li>
+                    <li><a href="apuracao/1turnovereadormunicipio"> Vereador/Geral</a></li>
+                    <li><a href="apuracao/1turnovereadorsecao"> Vereador/Seção</a></li>
+                    <li><a href="apuracao/1turnopartido"> Partido</a></li>
+                    <li><a href="apuracao/1turnopartidovereador"> Partido/Vereador</a></li>
+                    <li><a href="apuracao/1turnocoligacao"> Coligação</a></li>
+                </ul>
+            </li>
+
+            <li ng-if="authenticated.user.perfil==1">
+                <h3 class="navigation-title">Administrativo</h3>
+            </li>
+            <li ng-if="authenticated.user.perfil==1"
+                ng-init="count()"
+                class="menu-list">
+                <a href="" navsidebar><i class="material-icons">account_circle</i> <span>Usuários <span class="badge noti-arrow bg-success pull-right"
+                    ng-bind="count.count.results"></span> </span></a>
+                <ul class="child-list">
+                    <li><a href="usuario/add"> Novo usuário</a></li>
+                    <li><a href="usuario/"> Lista de usuários</a></li>
+                </ul>
+            </li>
+
+        </ul>
+        <!--sidebar nav end-->
+
+    </div>
+</div>
+<!-- sidebar left end -->

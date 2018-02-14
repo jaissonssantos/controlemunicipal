@@ -1,0 +1,33 @@
+<div class="popup" class="info-window">
+    <p>Local de Votação: <b>{{parameter.marker.local}}</b></p>
+    <p>Seções: <b>{{parameter.marker.secoes}}</b></p>
+    <p>Endereço: <b>{{parameter.marker.endereco}}, {{parameter.marker.bairro}}, {{parameter.marker.cidade}}</b></p>
+    <p>QTD Votos: <b>{{parameter.marker.votos}}</b></p>
+    <p>Advogado: <b>{{parameter.marker.advogados}}</b></p>
+    <p>Coordenador: <b>{{parameter.marker.coordenadores}}</b></p>
+    <p>Delegado: <b>{{parameter.marker.delegados}}</b></p>
+    <p>Fiscais:
+	    <table class="table table-striped table-hover no-margin">
+	        <thead>
+	            <tr>
+	              <th width="2%">#</th>
+	              <th width="15%">Seção</th>
+	              <th width="30%">Fiscal</th>
+	              <th width="20%">Celular 1</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-if="parameter.marker.fiscais[0]==''">
+	              <td colspan="5">Nenhum fiscal veiculado ao local</td>
+	            </tr>
+	            <tr ng-repeat="fiscal in parameter.marker.fiscais" 
+	              ng-if="parameter.marker.fiscais[0]!=''">
+	              <td ng-bind="$index+1"></td>
+	              <td ng-bind="fiscal.secao"></td>
+	              <td ng-bind="fiscal.nome"></td>
+	              <td ng-bind="fiscal.celular1|brPhoneNumber"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </p>
+</div>

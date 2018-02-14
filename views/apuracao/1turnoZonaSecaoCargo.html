@@ -1,0 +1,245 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->  
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Zona/Seção/Cargo
+        </h3>
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Apuração 2016</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+        <!-- row start -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <section class="panel">
+                    <div class="panel-body">
+
+                        <!-- form start -->
+                        <form name="$root.apuracaoForm" class="form-horizontal" role="form" 
+                                novalidate>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cidade</label>
+                                <div class="col-md-6">
+                                    <select
+                                      name="cidade"
+                                      class="form-control"
+                                      ng-init="loadCidades()"
+                                      ng-model="param.cidade"
+                                      ng-options="i.id as i.nome for i in cidade"
+                                      ng-change="loadZonas();" 
+                                      required>
+                                    </select>
+                                    <span ng-if="apuracaoForm.cidade.$touched && apuracaoForm.cidade.$dirty" 
+                                      class="input-dirty-touched">
+                                        <i ng-class="apuracaoForm.cidade.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Zona</label>
+                                <div class="col-md-6">
+                                   <select
+                                      name="zona"
+                                      class="form-control"
+                                      ng-model="param.zona"
+                                      ng-options="i.zona as i.zona for i in zonas"
+                                      ng-change="loadSecoes();" 
+                                      required>
+                                      <option value="">Selecione uma zona</option>
+                                    </select>
+                                    <span ng-if="associarForm.zona.$touched && associarForm.zona.$dirty" 
+                                      class="input-dirty-touched">
+                                        <i ng-class="associarForm.zona.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                                    </span>
+                                    <i ng-if="results.zonas_loading" 
+                                        class="fa fa-spin fa-spinner m-l-10 input-dirty-touched"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Seção</label>
+                                <div class="col-md-6">
+                                    <select
+                                        name="secao"
+                                        class="form-control"
+                                        ng-model="param.secao"
+                                        ng-options="i.secao as i.secao for i in secoes"
+                                        required>
+                                        <option value="">Selecione uma seção</option>
+                                    </select>
+                                    <i ng-if="results.secoes_loading" 
+                                        class="fa fa-spin fa-spinner m-l-10 input-dirty-touched"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cargo</label>
+                                <div class="col-md-6">
+                                    <select
+                                      name="cargo"
+                                      class="form-control"
+                                      ng-model="param.cargo"
+                                      required>
+                                      <option value="PREFEITO">PREFEITO</option>
+                                      <option value="VEREADOR">VEREADOR</option>
+                                    </select>
+                                    <span ng-if="apuracaoForm.cidade.$touched && apuracaoForm.cidade.$dirty" 
+                                      class="input-dirty-touched">
+                                        <i ng-class="apuracaoForm.cidade.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-9 col-md-offset-3">
+                                <button class="btn btn-action btn-primary btn-sm m-t-5 addon-btn"  ng-disabled="!param.cidade || !param.zona || !param.secao || results.loading"
+                                  ng-click="filter()">
+                                  <i class="material-icons">search</i> Filtrar 
+                                </button>
+                                <i ng-if="results.loading" 
+                                  class="fa fa-spin fa-spinner m-l-10"></i>
+                              </div>
+                            </div>
+
+                        </form>
+                        <!-- form end -->
+
+                        <div class="row" ng-if="resultados.results">
+                            <hr/>
+                        </div>
+
+                        <div class="row card-not-printable" 
+                            ng-if="resultados.results">
+                            <div class="col-md-6">
+                                <h5 class="text-left">Resultado do filtro</h5>
+                            </div>
+                            <div class="col-md-6" ng-if="resultados.results">
+                              <button class="btn btn-success btn-sm pull-right btn-action addon-btn card-not-printable" 
+                                onclick="javascript:window.print();">
+                                <i class="material-icons">print</i> Imprimir
+                              </button>
+                            </div>
+                        </div>
+
+                        <div class="row card-not-printable" 
+                            ng-if="resultados.results">
+                            <hr>
+                        </div>
+
+                        <div class="row" ng-if="resultados.results">
+                           <div class="col-md-12">
+                               <div class="logo-item text-left text-uppercase">
+                                    <h3 class="text-uppercase">Relatório Zona/Seção/Cargo(Fonte: TSE)</h3>
+                                    <h5 class="text-uppercase">Controle Municipal 2016</h5>
+                                </div>
+                           </div>
+                        </div>
+
+                        <div class="row" 
+                            ng-if="resultados.results">
+                            <hr>
+                        </div>
+
+                        <div class="row state-overview state-alt"
+                            ng-if="resultados.results">
+                            <div class="col-md-12">
+
+                                <div>
+                                    <div class="logo-item text-left text-uppercase">
+                                        <p>Local: 
+                                            <b ng-bind="resultados.results.localizacao.local"></b>
+                                        </p>
+                                        <p>Endereço: 
+                                            <b ng-bind="resultados.results.localizacao.endereco"></b>
+                                        </p>
+                                        <p>Bairro: 
+                                            <b ng-bind="resultados.results.localizacao.bairro"></b>
+                                        </p>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                              <th width="20%"
+                                                class="text-center active">Seção</th>
+                                              <th width="80%" class="active"></th>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="sc in resultados.results.secoes">
+                                                  <td ng-bind="sc.secao"
+                                                    class="text-center"></td>
+                                                  <td>
+                                                    <div ng-repeat="candidato in sc.candidato">
+                                                        <table class="table table-bordered">
+                                                          <tbody>
+                                                              <tr ng-repeat="nome in candidato.nome">  
+                                                                <td width="33.33%"
+                                                                  ng-bind="nome"
+                                                                ></td>
+                                                                <td
+                                                                 ng-bind="candidato.votos[$index]|number:0"></td>
+                                                              </tr>
+                                                          </tbody>
+                                                        </table>
+                                                    </div>
+                                                  </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end wrapper -->
+    
+    <!-- Footer -->
+    <md-footer></md-footer>
+    <!-- end Footer -->
+
+    <!-- right slider -->
+    <md-side></md-side>
+    <!-- end right slider -->
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section

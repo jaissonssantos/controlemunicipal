@@ -1,0 +1,279 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->  
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="text-uppercase">
+            Painel
+        </h3>
+        <span class="sub-title">Bem vindo ao controle municipal</span>
+        <section class="web-application">
+            <h4 class="h-text-light">Cidade</h4>
+        </section>
+            <select
+                ng-init="loadCidades()"
+                ng-model="cid"
+                ng-options="i.id as i.nome for i in cidade"
+                name="cid"
+                id="cid"
+                class="form-control"
+                ng-change="pegaCidade()" 
+                required>
+            </select>
+    </div>
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+        <!-- row start -->
+        <div class="row state-overview state-alt">
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel g-border">
+                    <div class="symbol">
+                        <span class="bg-success"><i class="material-icons">person</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                            {{qtdcand[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Candidatos</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel d-border">
+                    <div class="symbol ">
+                        <span class="bg-dark"><i class="material-icons">work</i></span>
+                    </div>
+                    <div class="value">
+                        <h1>
+                            {{qtdadv[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Advogados</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel p-border">
+                    <div class="symbol ">
+                        <span class="bg-primary"><i class="material-icons">call_split</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1>
+                            {{qtdcoo[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Coordenadores</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel b-border">
+                    <div class="symbol ">
+                        <span class="bg-info"><i class="material-icons">perm_contact_calendar</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                            {{qtddel[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Delegados</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel bege-border">
+                    <div class="symbol ">
+                        <span class="bg-bege"><i class="material-icons">record_voice_over</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                        {{qtdfis[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Fiscais</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel y-border">
+                    <div class="symbol ">
+                        <span class="bg-warning"><i class="material-icons">location_on</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                        {{qtdloc[0].qtd}}
+                        </h1>
+                        <p class="text-uppercase">Locais de votação</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel r-border">
+                    <div class="symbol ">
+                        <span class="bg-danger"><i class="material-icons">style</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                        <span ng-show="cid==1">43</span>
+                        <span ng-show="cid==2">22</span>
+                        <span ng-show="cid==3">70</span>
+                        <span ng-show="cid==4">27</span>
+                        <span ng-show="cid==5">38</span>
+                        <span ng-show="cid==6">230</span>
+                        <span ng-show="cid==7">42</span>
+                        <span ng-show="cid==8">86</span>
+                        <span ng-show="cid==9">22</span>
+                        <span ng-show="cid==10">47</span>
+                        <span ng-show="cid==11">21</span>
+                        <span ng-show="cid==12">53</span>
+                        <span ng-show="cid==13">62</span>
+                        <span ng-show="cid==14">55</span>
+                        <span ng-show="cid==15">25</span>
+                        <span ng-show="cid==16">800</span>
+                        <span ng-show="cid==17">42</span>
+                        <span ng-show="cid==18">13</span>
+                        <span ng-show="cid==19">99</span>
+                        <span ng-show="cid==20">89</span>
+                        <span ng-show="cid==21">102</span>
+                        <span ng-show="cid==22">64</span>
+                        </h1>
+                        <p class="text-uppercase">Seções</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel orange-border">
+                    <div class="symbol ">
+                        <span class="bg-orange"><i class="material-icons">unarchive</i></span>
+                    </div>
+                    <div class="value ">
+                        <h1 class="">
+                        <span ng-show="cid==1">39</span>
+                        <span ng-show="cid==2">22</span>
+                        <span ng-show="cid==3">59</span>
+                        <span ng-show="cid==4">26</span>
+                        <span ng-show="cid==5">31</span>
+                        <span ng-show="cid==6">200</span>
+                        <span ng-show="cid==7">38</span>
+                        <span ng-show="cid==8">86</span>
+                        <span ng-show="cid==9">22</span>
+                        <span ng-show="cid==10">42</span>
+                        <span ng-show="cid==11">20</span>
+                        <span ng-show="cid==12">33</span>
+                        <span ng-show="cid==13">52</span>
+                        <span ng-show="cid==14">46</span>
+                        <span ng-show="cid==15">25</span>
+                        <span ng-show="cid==16">710</span>
+                        <span ng-show="cid==17">39</span>
+                        <span ng-show="cid==18">10</span>
+                        <span ng-show="cid==19">91</span>
+                        <span ng-show="cid==20">73</span>
+                        <span ng-show="cid==21">102</span>
+                        <span ng-show="cid==22">33</span>
+                        </h1>
+                        <p class="text-uppercase">Urnas</p>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row start -->
+        <div class="row" ng-show="cid==16">
+            <div class="col-md-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="sale-monitor sale-monitor-dashboard">
+                                    <div class="title">
+                                        <h3>Acompanhamento</h3>
+                                        <p>Percentual expressivo de advogados, coordenadores, delegados, fiscal associados por locais de votação</p>
+                                    </div>
+                                    <div class="states">
+                                        <div class="info">
+                                            <div class="desc pull-left">Advogados</div>
+                                            <div class="percent pull-right">{{qtdadvv.qtd}}%</div>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar {{qtdadvv.cor}}" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{qtdadvv.qtd}}%">
+                                                <span class="sr-only">{{qtdadvv.qtd}}% </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="states">
+                                        <div class="info">
+                                            <div class="desc pull-left">Coordenadores</div>
+                                            <div class="percent pull-right">{{qtdcoov.qtd}}%</div>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar {{qtdcoov.cor}}" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{qtdcoov.qtd}}%">
+                                                <span class="sr-only">{{qtdcoov.qtd}}% </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="states">
+                                        <div class="info">
+                                            <div class="desc pull-left">Delegados</div>
+                                            <div class="percent pull-right">{{qtddelv.qtd}}%</div>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar {{qtddelv.cor}}" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{qtddelv.qtd}}%">
+                                                <span class="sr-only">{{qtddelv.qtd}}% </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="states">
+                                        <div class="info">
+                                            <div class="desc pull-left">Fiscais</div>
+                                            <div class="percent pull-right">{{qtdfisv.qtd}}%</div>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar {{qtdfisv.cor}}" role="progressbar" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100" style="width: {{qtdfisv.qtd}}%">
+                                                <span class="sr-only">{{qtdfisv.qtd}}% </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end wrapper -->
+    
+    <!-- Footer -->
+    <md-footer></md-footer>
+    <!-- end Footer -->
+
+    <!-- right slider -->
+    <md-side></md-side>
+    <!-- end right slider -->
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->

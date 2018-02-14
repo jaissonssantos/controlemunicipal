@@ -1,0 +1,20 @@
+<section>
+    <div class="block block-themed block-transparent remove-margin-b">
+        <div class="block-header bg-primary-dark">
+            <ul class="block-options">
+                <li>
+                    <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
+                </li>
+            </ul>
+            <h3 class="block-title">Confirmação de ação</h3>
+        </div>
+        <div class="block-content">
+            <p>{{modalItem}}</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-primary" ng-click="ok()">Sim</button>
+        <button class="btn btn-sm btn-warning" ng-click="cancel()">Não</button>
+    </div>
+</section>
+<!-- end modal -->

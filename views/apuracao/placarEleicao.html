@@ -1,0 +1,569 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->  
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Placar Eleitoral/Geral
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Placar</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+        <!-- row start -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <section class="panel">
+                    <div class="panel-body">
+
+                         <!-- form start -->
+                        <form name="$root.usuarioForm" class="form-horizontal" role="form" 
+                            ng-init="load()" novalidate>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal">Ano</label>
+                                <div class="col-md-9">
+                                    <select
+                                        ng-model="param.ano"
+                                        name="ano"
+                                        id="ano"
+                                        class="form-control"
+                                        ng-change="loadAno();"
+                                        required>
+                                        <option ng-value="2014">2014</option>
+                                        <option ng-value="2016" ng-selected="param.ano == 2016">2016</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Turno</label>
+                                <div class="col-md-9">
+                                    <select
+                                        name="turno"
+                                        class="form-control"
+                                        ng-model="param.turno"
+                                        ng-disabled="param.ano == 2016"
+                                        required>
+                                        <option ng-value="1" ng-selected="param.ano == 2014">1º</option>
+                                        <option ng-value="2">2º</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal">Cidade</label>
+                                <div class="col-md-9">
+                                    <select
+                                        ng-init="loadCidades()"
+                                        ng-change="setListCidade()"
+                                        ng-model="param.cidade.id"
+                                        name="cidade"
+                                        id="cidade"
+                                        class="form-control"
+                                        required>
+                                        <option ng-value="99" ng-selected="param.ano == 2014">Acre</option>
+                                        <option ng-selected="param.ano == c.id" ng-repeat="c in cidade" value="{{c.id}}" >{{ c.nome }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-9 col-md-offset-3">
+                                <button class="btn btn-action btn-primary btn-sm m-t-5 addon-btn"  ng-disabled="!param.cidade.id || results.loading"
+                                  ng-click="filter()">
+                                  <i class="material-icons">search</i> Filtrar 
+                                </button>
+                                <i ng-if="results.loading || results.presidente_loading" 
+                                  class="fa fa-spin fa-spinner m-l-10"></i>
+                              </div>
+                            </div>
+
+                            <!-- GOVERNADORES E PRESIDENTES -->
+                            <div class="row" ng-if="quantitativos.results.governadores">
+                                <hr/>
+                            </div>
+                
+                            <div class="col-md-12" 
+                                ng-if="quantitativos.results.governadores">
+                                <div class="col-md-6 p-l-0">
+                                    <h2 class="pull-left" ng-bind="param.cidade.nome"></h2>
+                                    <h4 class="pull-left m-l-5 m-t-30 w-info h-text-light">AC</h4>
+                                </div>
+                                <div class="col-md-6 p-r-0">
+                                    <h1 class="pull-right qtd-percent-urnas">100,00
+                                        <span class="percentage">%</span>
+                                    </h1>
+                                    <div class="pull-right text-uppercase m-t-35 qtd-percent-title">Urnas apuradas</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" 
+                                ng-if="quantitativos.results.governadores">
+                                <div class="progress"
+                                    ng-repeat="result in quantitativos.results.governadores">
+
+                                    <div class="progress-bar progress-bar-primary" 
+                                        role="progressbar"
+                                        style="width:{{((result.comparecidos*100)/result.aptos|number:2)}}%;">
+                                        {{((result.comparecidos*100)/result.aptos|number:2)}}% VOTANTES
+                                    </div>
+
+                                    <div class="progress-bar progress-bar-warning" 
+                                        role="progressbar"
+                                        style="width:{{((result.faltosos*100)/result.aptos|number:2)}}%;">
+                                        {{((result.faltosos*100)/result.aptos|number:2)}}% AUSENTES
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-l-0 p-r-0 qtd-eleitores" 
+                                    ng-repeat="result in quantitativos.results.governadores"
+                                    style="position: absolute;top: 20px;left: 15px;">
+                                    <div>
+                                        <span ng-bind="result.aptos|number:0"></span>
+                                        <b>ELEITORES</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 m-t-35 m-b-30 avatares" 
+                                ng-if="quantitativos.results.governadores">
+
+                                <div class="loading" ng-if="results.governador_loading">
+                                    <img src="assets/img/spinner.gif">
+                                    <p>Aguarde, processando...</p>
+                                </div>
+
+                                <div class="components" ng-if="!results.governador_loading">
+                                    <h4 class="sub-title-candidate">GOVERNADORES</h4>
+                                    <div class="box"
+                                    ng-repeat="governador in governadores.results">
+                                        <div class="candidate-avatar-type-big avatar-left"
+                                            ng-if="$index==0">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/acre/2014/acre_{{governador.numerovotavel}}.png"/>
+                                            </div>
+                                            <div class="candidate-status"
+                                                ng-if="governador.eleito==1">ELEITO</div>
+                                            <div class="candidate-status"
+                                                ng-if="governador.eleito==2">REELEITO</div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((governador.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name" 
+                                                ng-bind="governador.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="governador.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="governador.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                        <div class="candidate-avatar-type-big avatar-right"
+                                            ng-if="$index==1">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/acre/2014/acre_{{governador.numerovotavel}}.png"/>
+                                            </div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((governador.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name"
+                                                ng-bind="governador.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="governador.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="governador.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="avatares-bg"></div>
+                                    <div class="list-content">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="governador in governadores.results"
+                                                    ng-if="$index>=2 && $index<=6">
+                                                    <td>
+                                                        <div class="candidate-mask">
+                                                            <img class="candidate-image" 
+                                                                ng-src="assets/candidate/acre/2014/acre_{{governador.numerovotavel}}.png"/>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-bind="governador.nomevotavel"></td>
+                                                    <td ng-bind="governador.partido"></td>
+                                                    <td ng-bind="governador.votos|number:0"></td>
+                                                    <td ng-bind="((governador.votos*100)/pvv|number:2)+'%'"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 m-t-35 m-b-30 avatares" 
+                                ng-if="quantitativos.results.governadores">
+                                <h4 class="sub-title-candidate">PRESIDENTES/SENADORES/DEPUTADOS</h4>
+
+                                <div class="councilman-header">
+                                    <ul class="nav nav-tabs pull-left nav-tabs-hr" 
+                                        data-toggle="tabs">
+                                        <li ng-class="{active: tab == 1}">
+                                          <a ng-click="setTab(1)">Presidente
+                                            <sup class="badge bg-success" ng-bind="presidentes.count.results"></sup>
+                                          </a>
+                                        </li>
+                                        <li ng-class="{active: tab == 2}">
+                                          <a ng-click="setTab(2)">Senador
+                                            <sup class="badge bg-danger" ng-bind="senadores.count.results"></sup>
+                                          </a>
+                                        </li>
+                                        <li ng-class="{active: tab == 3}">
+                                            <a ng-click="setTab(3)">Dep. Federal
+                                                <sup class="badge bg-info" ng-bind="dep_federais.count.results"></sup>
+                                            </a>
+                                        </li>
+                                        <li ng-class="{active: tab == 4}">
+                                            <a ng-click="setTab(4)">Dep. Estadual
+                                                <sup class="badge bg-info" ng-bind="dep_estaduais.count.results"></sup>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="loading" ng-if="results.loading || 
+                                                        results.presidente_loading ||
+                                                        results.senadores_loading ||
+                                                        results.dep_federais_loading ||
+                                                        results.dep_estaduais_loading">
+                                    <img src="assets/img/spinner.gif">
+                                </div>
+
+                                <div class="list-content-candidates" 
+                                    ng-if="candidates.results || 
+                                        !results.presidente_loading ||
+                                        !results.senadores_loading ||
+                                        !results.dep_federais_loading ||
+                                        !results.dep_estaduais_loading">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr ng-repeat="candidate in candidates.results">
+                                                <td ng-bind="candidate.nomevotavel"></td>
+                                                <td ng-bind="candidate.partido"></td>
+                                                <td><b ng-bind="candidate.votos|number:0"></b></td>
+                                                <td>
+                                                    <span ng-if="candidate.eleito==1" 
+                                                        class="elected">ELEITO</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row votes-count">
+                                <div class="col-md-12">
+                                    <div class="col-md-6" 
+                                    ng-repeat="governador in quantitativos.results.governadores">
+                                        
+                                        <div class="col-md-4">
+                                            <span class="label">BRANCOS</span>
+                                            <span class="total"
+                                                ng-bind="governador.brancos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((governador.brancos*100)/governador.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">NULOS</span>
+                                            <span class="total"
+                                                ng-bind="governador.nulos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((governador.nulos*100)/governador.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">VÁLIDOS</span>
+                                            <span class="total"
+                                                ng-bind="governador.nominais|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((governador.nominais*100)/governador.comparecidos|number:2)+'%'"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIM GOVERNADORES E PRESIDENTES -->
+
+
+                            <!-- PREFEITO E VEREADORES -->
+                            <div class="row" ng-if="quantitativos.results.prefeitos">
+                                <hr/>
+                            </div>
+                
+                            <div class="col-md-12" 
+                                ng-if="quantitativos.results.prefeitos">
+                                <div class="col-md-6 p-l-0">
+                                    <h2 class="pull-left" ng-bind="param.cidade.nome"></h2>
+                                    <h4 class="pull-left m-l-5 m-t-30 w-info h-text-light">AC</h4>
+                                </div>
+                                <div class="col-md-6 p-r-0">
+                                    <h1 class="pull-right qtd-percent-urnas">100,00
+                                        <span class="percentage">%</span>
+                                    </h1>
+                                    <div class="pull-right text-uppercase m-t-35 qtd-percent-title">Urnas apuradas</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" 
+                                ng-if="quantitativos.results.prefeitos">
+                                <div class="progress"
+                                    ng-repeat="result in quantitativos.results.prefeitos">
+
+                                    <div class="progress-bar progress-bar-primary" 
+                                        role="progressbar"
+                                        style="width:{{((result.comparecidos*100)/result.aptos|number:2)}}%;">
+                                        {{((result.comparecidos*100)/result.aptos|number:2)}}% VOTANTES
+                                    </div>
+
+                                    <div class="progress-bar progress-bar-warning" 
+                                        role="progressbar"
+                                        style="width:{{((result.faltosos*100)/result.aptos|number:2)}}%;">
+                                        {{((result.faltosos*100)/result.aptos|number:2)}}% AUSENTES
+                                    </div>
+                                </div>
+                                <div class="col-md-12 p-l-0 p-r-0 qtd-eleitores" 
+                                    ng-repeat="result in quantitativos.results.prefeitos"
+                                    style="position: absolute;top: 20px;left: 15px;">
+                                    <div>
+                                        <span ng-bind="result.aptos|number:0"></span>
+                                        <b>ELEITORES</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 m-t-35 m-b-30 avatares" 
+                                ng-if="quantitativos.results.prefeitos">
+                                <h4 class="sub-title-candidate">PREFEITO</h4>
+                                <div class="box"
+                                ng-repeat="prefeito in prefeitos.results">
+                                    <div class="candidate-avatar-type-big avatar-left"
+                                        ng-if="$index==0">
+                                        <div class="candidate-mask">
+                                            <img class="candidate-image" 
+                                                ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                        </div>
+                                        <div class="candidate-status"
+                                            ng-if="prefeito.eleito">ELEITO</div>
+                                        <div class="candidate-status"
+                                            ng-if="prefeito.eleito==2">REELEITO</div>
+                                        <div class="candidate-votes">
+                                            <span 
+                                                ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
+                                            <span class="percent">%</span>
+                                        </div>
+                                        <div class="candidate-name" 
+                                            ng-bind="prefeito.nomevotavel"></div>
+                                        <div class="candidate-party situation-2"
+                                            ng-bind="prefeito.partido"></div>
+                                        <div class="candidate-total-votes">
+                                            <span ng-bind="prefeito.votos|number:0"></span> 
+                                            <span class="candidate-total-votes-label">votos</span>
+                                        </div>
+                                    </div>
+                                    <div class="candidate-avatar-type-big avatar-right"
+                                        ng-if="$index==1">
+                                        <div class="candidate-mask">
+                                            <img class="candidate-image" 
+                                                ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                        </div>
+                                        <div class="candidate-votes">
+                                            <span 
+                                                ng-bind="((prefeito.votos*100)/pvv|number:2)"></span>
+                                            <span class="percent">%</span>
+                                        </div>
+                                        <div class="candidate-name"
+                                            ng-bind="prefeito.nomevotavel"></div>
+                                        <div class="candidate-party situation-2"
+                                            ng-bind="prefeito.partido"></div>
+                                        <div class="candidate-total-votes">
+                                            <span ng-bind="prefeito.votos|number:0"></span> 
+                                            <span class="candidate-total-votes-label">votos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="avatares-bg"></div>
+                                <div class="list-content">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr ng-repeat="prefeito in prefeitos.results"
+                                                ng-if="$index>=2 && $index<=6">
+                                                <td>
+                                                    <div class="candidate-mask">
+                                                        <img class="candidate-image" 
+                                                            ng-src="assets/candidate/{{param.cidade.id}}/{{param.cidade.id}}_{{prefeito.numerovotavel}}.jpg"/>
+                                                    </div>
+                                                </td>
+                                                <td ng-bind="prefeito.nomevotavel"></td>
+                                                <td ng-bind="prefeito.partido"></td>
+                                                <td ng-bind="prefeito.votos|number:0"></td>
+                                                <td ng-bind="((prefeito.votos*100)/pvv|number:2)+'%'"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6 m-t-35 m-b-30 avatares" 
+                                ng-if="quantitativos.results.prefeitos">
+                                <h4 class="sub-title-candidate">VEREADORES</h4>
+
+                                <div class="councilman-header">
+                                    <ul class="nav nav-tabs pull-left nav-tabs-hr" 
+                                        data-toggle="tabs">
+                                        <li ng-class="{active: tab == 1}">
+                                          <a ng-click="setTab(1)">Todos
+                                            <sup class="badge bg-success" ng-bind="vereadores.count.vereadores"></sup>
+                                          </a>
+                                        </li>
+                                        <li ng-class="{active: tab == 2}">
+                                          <a ng-click="setTab(2)">Partido
+                                            <sup class="badge bg-danger" ng-bind="vereadores.count.partido"></sup>
+                                          </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="loading" ng-if="results.loading">
+                                  <img src="assets/img/spinner.gif">
+                                </div>
+
+                                <div class="list-content-candidates" 
+                                    ng-if="vereadores.results">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr ng-repeat="vereador in vereadores.results">
+                                                <td ng-if="tab==1" 
+                                                    ng-bind="vereador.nomevotavel"></td>
+                                                <td ng-bind="vereador.partido"></td>
+                                                <td><b ng-bind="vereador.votos|number:0"></b></td>
+                                                <td>
+                                                    <span ng-if="vereador.eleito==1 && tab==1" 
+                                                        class="elected">ELEITO</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row votes-count">
+                                <div class="col-md-12">
+                                    <div class="col-md-6" 
+                                    ng-repeat="prefeito in quantitativos.results.prefeitos">
+                                        
+                                        <div class="col-md-4">
+                                            <span class="label">BRANCOS</span>
+                                            <span class="total"
+                                                ng-bind="prefeito.brancos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((prefeito.brancos*100)/prefeito.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">NULOS</span>
+                                            <span class="total"
+                                                ng-bind="prefeito.nulos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((prefeito.nulos*100)/prefeito.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">VÁLIDOS</span>
+                                            <span class="total"
+                                                ng-bind="prefeito.nominais|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((prefeito.nominais*100)/prefeito.comparecidos|number:2)+'%'"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6"
+                                    ng-repeat="vereador in quantitativos.results.vereadores">
+                                        
+                                        <div class="col-md-4">
+                                            <span class="label">BRANCOS</span>
+                                            <span class="total"
+                                                ng-bind="vereador.brancos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((vereador.brancos*100)/vereador.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">NULOS</span>
+                                            <span class="total"
+                                                ng-bind="vereador.nulos|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((vereador.nulos*100)/vereador.comparecidos|number:2)+'%'"></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="label">VÁLIDOS</span>
+                                            <span class="total"
+                                                ng-bind="sum(vereador.nominais, vereador.legenda)|number:0"></span>
+                                            <span class="percent"
+                                                ng-bind="((sum(vereador.nominais, vereador.legenda)*100)/vereador.comparecidos|number:2)+'%'"></span>
+                                            <span class="legend">Nominais + legenda</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIM PREFEITO E VEREADORES -->
+
+                        </form>
+                        <!-- form end -->
+
+                    </div>
+                </section>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end wrapper -->
+    
+    <!-- Footer -->
+    <md-footer></md-footer>
+    <!-- end Footer -->
+
+    <!-- right slider -->
+    <md-side></md-side>
+    <!-- end right slider -->
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section

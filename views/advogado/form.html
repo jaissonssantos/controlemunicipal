@@ -1,0 +1,225 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Advogado
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Cadastros</a>
+                </li>
+                <li>
+                  <a href="advogado">Advogado</a>
+                </li>
+                <li class="active">Novo</li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <!-- form start -->
+                <form name="$root.advogadoForm" class="form-horizontal" role="form" 
+                  ng-init="load()" novalidate>
+
+                  <input type="hidden" ng-model="advogado.id" name="id">
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Informações básicas</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                    <div class="col-md-9">
+                        <input type="text"
+                                ng-model="advogado.nome"
+                                name="nome"
+                                class="form-control"
+                                required >
+                        <span ng-if="advogadoForm.nome.$touched && advogadoForm.nome.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="advogadoForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">OAB</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                                ng-model="advogado.oab"
+                                name="oab"
+                                class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">E-mail</label>
+                    <div class="col-md-6">
+                        <input type="email"
+                                ng-model="advogado.email"
+                                name="email"
+                                class="form-control">
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Contato</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Telefone 01</label>
+                    <div class="col-md-4">
+                        <input type="tel"
+                                ng-model="advogado.celular1"
+                                name="celular1"
+                                class="form-control"
+                                ui-br-phone-number
+                                required >
+                        <span ng-if="advogadoForm.celular1.$touched && advogadoForm.celular1.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="advogadoForm.celular1.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Telefone 02</label>
+                    <div class="col-md-4">
+                        <input type="tel"
+                                ng-model="advogado.celular2"
+                                name="celular2"
+                                class="form-control"
+                                ui-br-phone-number>
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Localização</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cidade de atuação</label>
+                    <div class="col-md-4">
+                        <select
+                          ng-init="loadCidades()"
+                          ng-model="advogado.idcidade"
+                          ng-options="i.id as i.nome for i in cidade"
+                          class="form-control" 
+                          name="idcidade"
+                          required>
+                        </select>
+                        <span ng-if="advogadoForm.idcidade.$touched && advogadoForm.idcidade.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="advogadoForm.idcidade.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <!--div class="form-group" ng-show="advogado.idcidade==16">
+                    <label class="col-md-3 control-label form-horizontal">Regional</label>
+                    <div class="col-md-4">
+                        <select
+                          ng-init="loadRegionais()"
+                          ng-model="advogado.idregional"
+                          ng-options="i.id as i.nome for i in regional"
+                          class="form-control"  
+                          name="idregional">
+                        </select>
+                    </div>
+                  </div-->
+
+                  <div class="form-group block-warning">
+                    <label class="col-md-3 control-label form-horizontal">Status</label>
+                    <div class="col-md-4">
+                        <select ng-model="advogado.status"
+                          name="status"
+                          class="form-control">
+                          <option value="1" >Ativo</option>
+                          <option value="2">Inativo</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-if="advogado.id != null" ng-click="update()"
+                          ng-disabled="advogadoForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <button ng-if="advogado.id == null" ng-click="save()"
+                          ng-disabled="advogadoForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <a href="advogado/">Cancelar</a>
+
+                  </div>
+                </div>
+
+
+                </form>
+                <!-- form end -->
+
+              </div>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->
+
+
+
+
+

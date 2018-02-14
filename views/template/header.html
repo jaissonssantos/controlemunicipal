@@ -1,0 +1,61 @@
+<!-- header section start-->
+<div class="header-section" ng-controller="templateController" ng-init="load()">
+
+    <!--logo and logo icon start-->
+    <div class="logo orange-logo-bg hidden-xs hidden-sm">
+        <a href="dashboard">
+            <!-- <i class="fa fa-map-marker"></i> -->
+            <!-- <span class="brand-name text-uppercase">MAPA</span> -->
+            <div class="logo-item text-left">
+                <img src="assets/img/logo_.svg">
+            </div>
+        </a>
+    </div>
+
+    <div class="icon-logo orange-logo-bg hidden-xs hidden-sm">
+        <a href="dashboard">
+            <i class="material-icons">home</i>
+        </a>
+    </div>
+    <!--logo and logo icon end-->
+
+    <!--toggle button start-->
+    <a class="toggle-btn" togglebtn><i class="material-icons">menu</i></a>
+    <!--toggle button end-->
+
+
+    <!--right notification start-->
+    <div class="right-notification">
+        <ul class="notification-menu">
+            <li>
+                <a href="javascript:;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <img src="assets/img/avatar-mini.svg" alt="" style="border-radius: 0">
+                    <abbr ng-bind="authenticated.user.nome"></abbr>
+                    <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-usermenu purple pull-right">
+                    <li>
+                        <a href="javascript:;" ng-click="passwordchange();"> 
+                            <i class="material-icons pull-right">lock_open</i> Modificar senha</a>
+                        </li>
+                    <!-- <li>
+                        <a href="javascript:;">
+                            <span class="label bg-info pull-right">novo</span>
+                            Ajuda
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="javascript:" ng-click="logout()">
+                            <i class="material-icons pull-right">exit_to_app</i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!--right notification end-->
+    </div>
+
+</div>
+<!-- header section end-->

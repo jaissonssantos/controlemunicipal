@@ -1,0 +1,110 @@
+<!-- modal-header start -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
+    <button type="button" class="edit" aria-hidden="true" ng-click="edit();">
+      <i class="glyphicon glyphicon-pencil"></i> Editar usuário
+    </button>
+    <h4 class="modal-title text-uppercase">Detalhes</h4>
+</div>
+<!-- modal-header end -->
+
+<!-- modal-body start -->
+<div class="modal-body" ng-init="load();">
+
+  <div ng-if="results.loading" class="row">
+    <div class="col-md-12 text-center">
+          <i class="fa fa-2x fa-spinner fa-spin"></i>
+          <p>Processando...</p>
+    </div>
+  </div>
+
+  <!-- form start -->
+  <form id="formnovo" name="formnovo" class="form-horizontal" ng-if="!results.loading">
+
+    <div class="row state-overview">
+      <div class="col-md-12">
+        
+        <!-- state start -->
+        <div ng-if="usuario.status == 1" 
+          class="state">
+          <div class="icon-state">
+            <span class="icon bg-success">
+                <i class="material-icons">thumb_up</i>
+            </span>
+          </div>
+          <div class="description-state">
+            <p class="state-title">Usuário</p>
+            <p class="state-subtitle">Ativo</p>
+          </div>
+        </div>
+        <!-- state end -->
+
+        <!-- state start -->
+        <div ng-if="usuario.status == 2" 
+          class="state">
+          <div class="icon-state">
+            <span class="icon bg-danger">
+                <i class="material-icons">thumb_down</i>
+            </span>
+          </div>
+          <div class="description-state">
+            <p class="state-title">Usuário</p>
+            <p class="state-subtitle">Inativo</p>
+          </div>
+        </div>
+        <!-- state end -->
+
+      </div>
+    </div>
+
+    <fieldset>
+        <legend>Informações do básicas</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="title-modal">Nome </label>
+                <span class="subtitle-modal" ng-bind="usuario.nome"></span>
+            </div>
+            <div class="col-sm-6">
+              <label class="title-modal">E-mail </label>
+              <span
+                 ng-if="usuario.email != undefined" 
+                 class="subtitle-modal"
+                 ng-bind="usuario.email">{{usuario.email}}</span>
+                <span
+                 ng-if="usuario.email == undefined" 
+                 class="subtitle-modal">N/D</span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Localização</legend>
+        <div class="row" ng-if="usuario.cidade.length">
+            <div class="col-sm-12" ng-repeat="cidade in usuario.cidade">
+              <span
+                 class="subtitle-modal"
+                 ng-bind="cidade.nome + '/' + cidade.estado"></span>
+            </div>
+        </div>
+
+        <div class="row" ng-if="!usuario.cidade.length">
+            <div class="col-sm-12">
+              <span
+                 class="subtitle-modal">N/D</span>
+            </div>
+        </div>
+    </fieldset>
+
+  </form>
+  <!-- form end -->
+
+</div>
+<!-- modal-body end -->
+
+<!-- modal-footer start -->
+<div class="modal-footer">
+    <button class="btn btn-sm btn-default" type="button" ng-click="cancel()"> Fechar</button>
+</div>
+<!-- modal-footer end -->
+
+

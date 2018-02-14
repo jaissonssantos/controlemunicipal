@@ -1,0 +1,105 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+<style>
+.angular-google-map-container { 
+  height: 500px; 
+}
+.info-window {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    margin-left: -130px;
+    margin-top: 15px;
+    padding: 20px;
+    width: 400px;
+    height: 400px;
+}
+</style>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Mapa
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Eleições 2016</a>
+                </li>
+                <li class="active">
+                  <a href="javascript:void(0);">Mapa</a>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body" ng-init="setRB()">
+                <!-- form start -->
+                <form name="mapaForm" class="form-horizontal" role="form">
+
+                <!-- row start -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div id="mapaview">
+                      <ui-gmap-google-map class="angular-google-map-container" center='{latitude:lat, longitude:lng}' zoom='map.zoom' draggable="true">
+                       <ui-gmap-layer type="KmlLayer" options="{url: 'http://www.controlemunicipal.com/assets/kml/regionais2.kml'}"></ui-gmap-layer>
+                        <ui-gmap-marker ng-repeat="m in markers" coords="m.coords" idKey="m.id"  click="onClickMarker(m)">
+                          <ui-gmap-window show="showWindow" closeClick="'closeClick'" templateUrl="templateUrl" templateParameter="windowParams" ng-cloak>
+                          </ui-gmap-window>
+                        </ui-gmap-marker>
+                      </ui-gmap-google-map>
+                    </div>
+                    <div id="mapamsg" ng-if="lat==''"><h2>Selecione a cidade para visualizar o mapa com os locais de votação</h2></div>
+                </div>
+                <!-- row end -->
+
+              </div>
+              </form>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->

@@ -1,0 +1,131 @@
+<!-- modal-header start -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
+    <h4 class="modal-title text-uppercase">Detalhes</h4>
+</div>
+<!-- modal-header end -->
+
+<!-- modal-body start -->
+<div class="modal-body">
+
+  <div ng-if="fiscal.isloading" class="row">
+    <div class="col-md-12 text-center">
+          <i class="fa fa-2x fa-spinner fa-spin"></i>
+          <p>Processando...</p>
+    </div>
+  </div>
+
+  <!-- form start -->
+  <form id="formnovo" name="formnovo" class="form-horizontal" ng-if="!fiscal.isloading">
+
+    <div class="row state-overview">
+      <div class="col-md-12">
+        
+        <!-- state start -->
+        <div ng-if="fiscal.status == 1" 
+          class="state">
+          <div class="icon-state">
+            <span class="icon bg-success">
+                <i class="material-icons">thumb_up</i>
+            </span>
+          </div>
+          <div class="description-state">
+            <p class="state-title">Fiscal</p>
+            <p class="state-subtitle">Ativo</p>
+          </div>
+        </div>
+        <!-- state end -->
+
+        <!-- state start -->
+        <div ng-if="fiscal.status == 2" 
+          class="state">
+          <div class="icon-state">
+            <span class="icon bg-danger">
+                <i class="material-icons">thumb_down</i>
+            </span>
+          </div>
+          <div class="description-state">
+            <p class="state-title">Fiscal</p>
+            <p class="state-subtitle">Inativo</p>
+          </div>
+        </div>
+        <!-- state end -->
+
+      </div>
+    </div>
+
+    <fieldset>
+        <legend>Informações do básicas</legend>
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="title-modal">Nome </label>
+                <span class="subtitle-modal" ng-bind="fiscal.nome"></span>
+            </div>
+            <div class="col-sm-12">
+              <label class="title-modal">E-mail </label>
+              <span
+                 ng-if="fiscal.email != undefined" 
+                 class="subtitle-modal"
+                 ng-bind="fiscal.email">{{fiscal.email}}</span>
+                <span
+                 ng-if="fiscal.email == undefined" 
+                 class="subtitle-modal">N/D</span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Contato</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="title-modal">Telefone 01 </label>
+                <span
+                 ng-if="fiscal.celular1 != undefined" 
+                 class="subtitle-modal"
+                 ng-bind="fiscal.celular1| brPhoneNumber"></span>
+                <span
+                 ng-if="fiscal.celular1 == undefined" 
+                 class="subtitle-modal">N/D</span>
+            </div>
+            <div class="col-sm-6">
+                <label class="title-modal">Telefone 02 </label>
+                <span
+                 ng-if="fiscal.celular2 != undefined" 
+                 class="subtitle-modal"
+                 ng-bind="fiscal.celular2| brPhoneNumber"></span>
+                <span
+                 ng-if="fiscal.celular2 == undefined" 
+                 class="subtitle-modal">N/D</span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Localização</legend>
+        <div class="row">
+            <div class="col-sm-6">
+              <label class="title-modal">Cidade </label>
+              <span
+                 ng-if="fiscal.cidade != undefined" 
+                 class="subtitle-modal"
+                 ng-bind="fiscal.cidade"></span>
+              <span
+                 ng-if="fiscal.cidade == undefined" 
+                 class="subtitle-modal">N/D</span>
+            </div>
+        </div>
+    </fieldset>
+
+  </form>
+  <!-- form end -->
+
+</div>
+<!-- modal-body end -->
+
+<!-- modal-footer start -->
+<div class="modal-footer">
+    <button class="btn btn-sm btn-default" type="button" ng-click="cancel()"> Fechar</button>
+</div>
+<!-- modal-footer end -->
+
+

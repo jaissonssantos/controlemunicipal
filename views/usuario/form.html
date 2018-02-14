@@ -1,0 +1,261 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Usuário
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Cadastros</a>
+                </li>
+                <li>
+                  <a href="usuario">Usuário</a>
+                </li>
+                <li class="active">Novo</li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <!-- form start -->
+                <form name="$root.usuarioForm" class="form-horizontal" role="form" 
+                  ng-init="load()" novalidate>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Informações básicas</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                    <div class="col-md-9">
+                        <input type="text"
+                                ng-model="usuario.nome"
+                                name="nome"
+                                class="form-control"
+                                required>
+                        <span ng-if="usuarioForm.nome.$touched && usuarioForm.nome.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="usuarioForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>E-mail</label>
+                    <div class="col-md-6">
+                        <input type="email"
+                                ng-model="usuario.email"
+                                name="email"
+                                class="form-control"
+                                required>
+                        <span ng-if="usuarioForm.email.$touched && usuarioForm.email.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="usuarioForm.email.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  
+                  <section class="web-application" ng-if="usuario.id==null">
+                    <h4 class="h-text-light">Segurança</h4>
+                  </section>
+
+                  <div class="form-group" ng-if="usuario.id==null">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Senha</label>
+                    <div class="col-md-3">
+                        <input type="password"
+                                ng-model="usuario.senha"
+                                name="senha"
+                                class="form-control"
+                                required>
+                        <span ng-if="usuarioForm.senha.$touched && usuarioForm.senha.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="usuarioForm.senha.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group" ng-if="usuario.id==null">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Confirme a senha</label>
+                    <div class="col-md-3">
+                        <input type="password"
+                                ng-model="usuario.confirmarsenha"
+                                name="confirmarsenha"
+                                class="form-control"
+                                required>
+                        <span ng-if="usuarioForm.confirmarsenha.$touched && usuarioForm.confirmarsenha.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="usuarioForm.confirmarsenha.$valid && usuario.senha == usuario.confirmarsenha ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Perfil</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Perfil de acesso</label>
+                    <div class="col-md-4">
+                        <select ng-model="usuario.perfil"
+                          class="form-control" 
+                          name="perfil"
+                          required>
+                          <option value="">Escolha um nível</option>
+                          <option value="1">Administrador do sistema(nível máximo)</option>
+                          <option value="2">Gestor de tarefas(nível mediano)</option>
+                          <option value="3">Observador de resultados(nível baixo)</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Localização</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cidade</label>
+                    <div class="col-md-4">
+                        <select
+                          ng-init="loadCidades()"
+                          ng-model="usuario.idcidade"
+                          ng-options="i.id as i.nome for i in cidade"
+                          name="idcidade"
+                          class="form-control" >
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                      <button ng-click="addCidade(usuario.idcidade)" 
+                        class="btn btn-sm btn-success">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <div class="table-modal">
+                        <table class="table table-striped table-hover no-margin">
+                          <thead>
+                            <tr>
+                              <th width="2%">#</th>
+                              <th width="20%">Cidade</th>
+                              <th width="14.7%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-if="!cidades.length">
+                              <td colspan="3">Nenhuma cidade veiculada ao usuário</td>
+                            </tr>
+                            <tr ng-repeat="cidade in cidades" 
+                              ng-if="cidades.length">
+                              <td>{{$index+1}}</td>
+                              <td>{{cidade.nome}}</td>
+                              <td>
+                                <button class="btn btn-sm btn-danger" ng-click="delCidade(cidade.id)">
+                                  <i class="fa fa-trash"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group block-warning">
+                    <label class="col-md-3 control-label form-horizontal">Status</label>
+                    <div class="col-md-4">
+                        <select ng-model="usuario.status"
+                          name="status"
+                          class="form-control">
+                          <option value="">Escolha um status</option>
+                          <option value="1">Ativo</option>
+                          <option value="2">Inativo</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-if="usuario.id!=null" ng-click="update()"
+                          ng-disabled="usuarioForm.$invalid || !cidades.length || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <button ng-if="usuario.id==null" ng-click="save()"
+                          ng-disabled="usuarioForm.$invalid || usuario.senha != usuario.confirmarsenha || !cidades.length || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <a href="usuario/">Cancelar</a>
+
+                  </div>
+                </div>
+
+
+                </form>
+                <!-- form end -->
+
+              </div>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->
+
+
+
+
+

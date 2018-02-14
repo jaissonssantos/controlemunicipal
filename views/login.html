@@ -1,0 +1,54 @@
+<!-- Login Content -->
+<div class="login-body">
+    
+    <div class="login-logo">
+      <img src="assets/img/logo_.svg" style="min-height: 80px;">
+    </div>
+
+    <h2 class="form-heading">Autenticação do sistema</h2>
+    <div class="container log-row">
+      <form name="$root.autenticarForm" class="form-signin" role="form" novalidate>
+          <div class="login-wrap">
+
+              <!-- Messages -->
+              <div ng-if="error" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span ng-bind="error"></span>
+              </div>
+              <!-- End Messages -->
+
+              <input type="text" 
+                class="form-control" 
+                placeholder="E-mail" 
+                ng-model="user.email"
+                required
+                autofocus>
+              <input type="password" 
+                class="form-control" 
+                placeholder="Senha"
+                required
+                ng-model="user.senha">
+              <button class="btn btn-lg btn-primary btn-block" 
+                type="submit" 
+                ng-click="authenticate()"
+                ng-disabled="autenticarForm.$invalid || status.loading">
+                <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> LOGIN
+              </button>
+              <label class="checkbox-custom check-success">
+                  <!--input type="checkbox" value="remember-me" id="checkbox1"> <label for="checkbox1">Lembrar-me</label>
+                  <a class="pull-right" data-toggle="modal" href="#forgotPass"> Recuperar senha?</a-->
+              </label>
+
+              <!--div class="registration">
+                  Você não tem conta?
+                  <a class="" href="registration.html">
+                      Quero criar minha conta agora
+                  </a>
+              </div-->
+
+          </div>
+      </form>
+    </div>
+
+</div>
+<!-- END Login Content -->

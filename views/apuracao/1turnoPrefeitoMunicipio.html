@@ -1,0 +1,211 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->  
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Prefeito por município
+        </h3>
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Apuração 2016</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+        <!-- row start -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <section class="panel">
+                    <div class="panel-body">
+
+                        <!-- form start -->
+                        <form name="$root.apuracaoForm" class="form-horizontal" role="form" 
+                                novalidate>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal">Cidade</label>
+                                <div class="col-md-6">
+                                    <select
+                                        name="cidade"
+                                        id="cidade"
+                                        class="form-control"
+                                        ng-init="loadCidades()"
+                                        ng-model="param.cidade.id"
+                                        ng-change="loadCandidatos();"
+                                        required>
+                                        <option ng-repeat="c in cidade" 
+                                            value="{{c.id}}"
+                                            ng-bind="c.nome"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Candidato</label>
+                                <div class="col-md-6">
+                                   <select
+                                      name="candidato"
+                                      class="form-control"
+                                      ng-model="param.candidato"
+                                      ng-options="i.numerovotavel as i.nomevotavel for i in prefeitocandidatos"
+                                      required>
+                                      <option value="">Selecione um candidato</option>
+                                    </select>
+                                    <span ng-if="apuracaoForm.candidato.$touched && apuracaoForm.candidato.$dirty" 
+                                      class="input-dirty-touched">
+                                        <i ng-class="apuracaoForm.candidato.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                                    </span>
+                                    <i ng-if="results.prefeito_loading" 
+                                        class="fa fa-spin fa-spinner m-l-10 input-dirty-touched"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-9 col-md-offset-3">
+                                <button class="btn btn-action btn-primary btn-sm m-t-5 addon-btn"  ng-disabled="!param.cidade.id || results.loading"
+                                  ng-click="filter()">
+                                  <i class="material-icons">search</i> Filtrar 
+                                </button>
+                                <i ng-if="results.loading" 
+                                  class="fa fa-spin fa-spinner m-l-10"></i>
+                              </div>
+                            </div>
+
+                        </form>
+                        <!-- form end -->
+
+                        <div class="row card-not-printable" 
+                            ng-if="prefeitos.results">
+                            <hr/>
+                        </div>
+
+                        <div class="row card-not-printable" 
+                            ng-if="prefeitos.results">
+                            <div class="col-md-6">
+                                <h5 class="text-left">Resultado do filtro</h5>
+                            </div>
+                            <div class="col-md-6" ng-if="prefeitos.results">
+                              <button class="btn btn-success btn-sm pull-right btn-action addon-btn card-not-printable" 
+                                onclick="javascript:window.print();">
+                                <i class="material-icons">print</i> Imprimir
+                              </button>
+                            </div>
+                        </div>
+
+                        <div class="row card-not-printable" 
+                            ng-if="prefeitos.results">
+                            <hr>
+                        </div>
+
+                        <div class="row" ng-if="prefeitos.results">
+                           <div class="col-md-12">
+                               <div class="logo-item text-left text-uppercase">
+                                    <h3 class="text-uppercase">Relatório prefeito por munícipio(Fonte: TSE)</h3>
+                                    <h5 class="text-uppercase">Controle Municipal 2016</h5>
+                                </div>
+                           </div>
+                        </div>
+
+                        <div class="row" 
+                            ng-if="prefeitos.results">
+                            <hr>
+                        </div>
+
+                        <div class="row state-overview state-alt">
+                            <div class="col-md-12">
+
+                                <div ng-repeat="prefeito in prefeitos.results">
+                                    <div class="logo-item text-left text-uppercase">
+                                        <p>Local: 
+                                            <b ng-bind="prefeito.local"></b>
+                                        </p>
+                                        <p>Endereço: 
+                                            <b ng-bind="prefeito.endereco"></b>
+                                        </p>
+                                        <p>Bairro: 
+                                            <b ng-bind="prefeito.bairro"></b>
+                                        </p>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                              <th width="1%">#</th>
+                                              <th width="20%">Zona</th>
+                                              <th width="20%">Seção</th>
+                                              <th width="20%" class="text-right">Qtd votos</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="p in prefeito.secoes">
+                                                  <td ng-bind="$index+1"></td>
+                                                  <td ng-bind="p.zona"></td>
+                                                  <td ng-bind="p.secao"></td>
+                                                  <td class="text-right" 
+                                                    ng-bind="(p.votos!=undefined?p.votos:0)|number:0"></td>
+                                                </tr>
+                                                <tr ng-if="prefeito.secoes.length>1">
+                                                    <td colspan="3"
+                                                        class="text-right" 
+                                                        ng-bind="'votos válidos: '"></td>
+                                                    <td class="text-right"
+                                                        ng-bind="sumVotes(prefeito.secoes)"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="text-right" 
+                                    ng-if="prefeitos.results">
+                                    <h4 class="bg-bege"
+                                        style="padding:6px 12px;float:right;border-radius:3px" 
+                                        ng-bind="'Total: ' + (results.sum|number:0)"></h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end wrapper -->
+    
+    <!-- Footer -->
+    <md-footer></md-footer>
+    <!-- end Footer -->
+
+    <!-- right slider -->
+    <md-side></md-side>
+    <!-- end right slider -->
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section

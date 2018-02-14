@@ -1,0 +1,223 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Candidato
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Cadastros</a>
+                </li>
+                <li>
+                  <a href="candidato">Candidato</a>
+                </li>
+                <li class="active">Novo</li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <!-- form start -->
+                <form name="$root.candidatoForm" class="form-horizontal" role="form" 
+                  ng-init="load()" novalidate>
+
+                  <input type="hidden" ng-model="candidato.id" name="id">
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Informações básicas</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                    <div class="col-md-9">
+                        <input type="text"
+                                ng-model="candidato.nome"
+                                name="nome"
+                                class="form-control"
+                                required >
+                        <span ng-if="candidatoForm.nome.$touched && candidatoForm.nome.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="candidatoForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Cargo</label>
+                    <div class="col-md-9">
+                        <select ng-model="candidato.cargo"class="form-control" required>
+                          <option value="1">Prefeito</option>
+                          <option value="2">Vereador</option>
+                        </select>
+                        <span ng-if="candidatoForm.cargo.$touched && candidatoForm.cargo.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="candidatoForm.cargo.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Partido</label>
+                    <div class="col-md-9">
+                        <select
+                          ng-init="loadPartidos()"
+                          ng-model="candidato.idpartido"
+                          ng-options="p.id as p.sigla for p in partido"
+                          class="form-control" name="idpartido">
+                        </select>
+                        <span ng-if="candidatoForm.idpartido.$touched && candidatoForm.idpartido.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="candidatoForm.idpartido.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Número</label>
+                    <div class="col-md-9">
+                        <input type="text"
+                                ng-model="candidato.numero"
+                                name="numero"
+                                class="form-control"
+                                required >
+                        <span ng-if="candidatoForm.numero.$touched && candidatoForm.numero.$dirty" 
+                          class="input-dirty-touched">
+                            <i ng-class="candidatoForm.numero.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                        </span>
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Contato</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Telefone 01</label>
+                    <div class="col-md-4">
+                        <input type="tel"
+                                ng-model="candidato.celular1"
+                                name="celular1"
+                                class="form-control"
+                                ui-br-phone-number>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Telefone 02</label>
+                    <div class="col-md-4">
+                        <input type="tel"
+                                ng-model="candidato.celular2"
+                                name="celular2"
+                                class="form-control"
+                                ui-br-phone-number>
+                    </div>
+                  </div>
+
+                  <section class="web-application">
+                    <h4 class="h-text-light">Localização</h4>
+                  </section>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cidade</label>
+                    <div class="col-md-4">
+                        <select
+                          ng-init="loadCidades()"
+                          ng-model="candidato.idcidade"
+                          ng-options="i.id as i.nome for i in cidade"
+                          class="form-control" 
+                          name="idcidade"
+                          required>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group block-warning">
+                    <label class="col-md-3 control-label form-horizontal">Status</label>
+                    <div class="col-md-4">
+                        <select ng-model="candidato.status"
+                          name="status"
+                          class="form-control">
+                          <option value="1" >Ativo</option>
+                          <option value="2">Inativo</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-if="candidato.id != null" ng-click="update()"
+                          ng-disabled="candidatoForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <button ng-if="candidato.id == null" ng-click="save()"
+                          ng-disabled="candidatoForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <a href="candidato/">Cancelar</a>
+
+                  </div>
+                </div>
+
+
+                </form>
+                <!-- form end -->
+
+              </div>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->

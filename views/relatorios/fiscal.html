@@ -1,0 +1,182 @@
+<!-- section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Relátorio de Fiscais
+        </h3>
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Eleições 2016</a>
+                </li>
+                <li>
+                  <a href="relatorio/fiscal">Relatório de Fiscais</a>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <!-- row start -->
+                <div class="row state-overview state-alt">
+                    <div class="col-lg-12 col-sm-12">
+                      <form name="$root.filtroForm" class="form-horizontal" role="form">
+                        
+                        <section class="web-application">
+                          <h4 class="h-text-light">Filtro</h4>
+                        </section>
+
+                        <div class="form-group">
+                          <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Cidade</label>
+                          <div class="col-md-9">
+                              <select
+                                  ng-init="loadCidades()"
+                                  ng-model="cid"
+                                  ng-options="i.id as i.nome for i in cidade"
+                                  name="cid"
+                                  id="cid"
+                                  class="form-control"
+                                  required>
+                              </select>
+                              <span ng-if="filtroForm.$touched && filtroForm.$dirty" 
+                                class="input-dirty-touched">
+                                  <i ng-class="filtroForm.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                              </span>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-md-9 col-md-offset-3">
+                            <button class="btn btn-action btn-primary btn-sm m-t-5 addon-btn"  ng-disabled="!cid || results.loading"  
+                              ng-click="setCidade(cid)">
+                              <i class="material-icons">search</i> Filtrar 
+                            </button>
+                            <i ng-if="results.loading" 
+                              class="fa fa-spin fa-spinner m-l-10"></i>
+                          </div>
+                        </div>
+
+                      </form>
+                    </div>
+                </div>
+                <!-- row end -->
+                
+                <div class="row card-not-printable" ng-if="locais.localidade.length>0">
+                  <hr>
+                </div>
+
+                <div class="row card-not-printable" ng-if="locais.localidade.length>0">
+                  <div class="col-md-12" ng-if="locais.localidade.length>0">
+                      <button class="btn btn-success btn-sm pull-right btn-action addon-btn card-not-printable" 
+                        onclick="javascript:window.print();">
+                        <i class="material-icons">print</i> Imprimir
+                      </button>
+                  </div>
+                </div>
+                <div class="row card-not-printable" ng-if="locais.localidade.length>0">
+                    <hr>
+                </div>
+
+                <!-- row start -->
+                <div class="row state-overview state-alt print">
+                  <div class="col-md-12" ng-if="locais.localidade.length">
+                    <div class="logo-item text-left text-uppercase">
+                      <h3><b>Relatório de Fiscais - {{municipio[0].nome}}</b></h3>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-sm-12">
+                    <div class="table-responsive">
+                      <table ng-if="!locais.localidade==undefined" class="table table-hover">
+                        <tr class="active">
+                          <td>Nenhum resultado carregado</td>
+                        </tr>
+                      </table>
+                      <ul class="p-l-0">
+                        <li ng-repeat="l in locais.localidade"> 
+                          Local: <b>{{l.local}}</b><br>
+                          <h5>{{l.endereco}}, {{l.bairro}}<!--, Regional {{localC.localidade[0].regional}}--></h5>
+                          <h6>{{l.secoes}}</h6>
+                          <table ng-if="l.fiscais == ''" class="table table-hover">
+                            <tr class="active">
+                              <td>Nenhum Fiscal Vinculado</td>
+                            </tr>
+                          </table>
+                          <table ng-if="l.fiscais != ''" class="table table-striped table-hover">
+                            <thead>
+                              <th width="1%">#</th>
+                              <th width="10%">Seção</th>
+                              <th width="40%">Nome</th>
+                              <th width="20%">Telefone 1</th>
+                              <th width="20%">Telefone 2</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="a in l.fiscais">
+                              <td ng-bind="$index+1"></td>
+                              <td ng-bind="a.secao"></td>
+                              <td ng-bind="a.nome"></td>
+                              <td ng-bind="a.celular1 | brPhoneNumber"></td>
+                              <td ng-bind="a.celular2 | brPhoneNumber"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </li>
+                    </ul>
+                 </div>
+                </div>
+                <!-- row end -->
+
+              </div>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section -->
+
+
+
+
+

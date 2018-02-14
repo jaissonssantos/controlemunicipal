@@ -1,0 +1,113 @@
+section start -->
+<div class="sticky-header">
+<section>
+<style>
+.angular-google-map-container { 
+  height: 650px; 
+}
+.info-window {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    margin-left: -130px;
+    margin-top: 15px;
+    padding: 20px;
+    width: 400px;
+    height: 650px;
+}
+</style>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Mapa
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Eleições 2016</a>
+                </li>
+                <li class="active">
+                  <a href="javascript:void(0);">Mapa de Votação: Maarcus Alexandre x Oposição</a>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+                <!-- form start -->
+                <form name="mapaForm" class="form-horizontal" role="form">
+
+                    <section class="web-application">
+                      <h4 class="h-text-light">Mapa de Votação: Marcus Alexandre x Oposição</h4>
+                      <div class="text-right alert alert-danger" ng-if="results.loading"><i class="fa fa-spin fa-spinner"></i>Aguarde... Estamos carregando os resultados...</div>
+                    </section>
+
+                    <div class="row">
+                      <hr>
+                    </div>
+
+                    <!-- row start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <div id="mapaview" ng-if="lat!=''">
+                            <ui-gmap-google-map class="angular-google-map-container" center='{latitude:lat, longitude:lng}' zoom='map.zoom' draggable="true">
+                             <ui-gmap-layer ng-show="municipio.id==16" type="KmlLayer" options="{url: 'http://www.controlemunicipalac.com.br/assets/kml/regionais2.kml'}"></ui-gmap-layer>
+                              <ui-gmap-marker ng-repeat="m in markers" coords="m.coords" idKey="m.id"  click="onClickMarker(m)" icon="{url:m.icon}">
+                                <ui-gmap-window show="showWindow" closeClick="'closeClick'" templateUrl="templateUrl" templateParameter="windowParams" ng-cloak>
+                                </ui-gmap-window>
+                              </ui-gmap-marker>
+                            </ui-gmap-google-map>
+                          </div>
+                      </div>
+                    </div>
+                    <!-- row end -->
+
+              </form>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section

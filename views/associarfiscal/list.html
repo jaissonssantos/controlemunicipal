@@ -1,0 +1,262 @@
+section start -->
+<div class="sticky-header">
+<section>
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->
+
+<!-- body content start-->
+<div class="body-content" style="min-height: 1200px;">
+
+    <!-- Header -->
+    <md-header></md-header>
+    <!-- end Header -->
+
+    <div class="page-head">
+        <h3 class="m-b-less text-uppercase">
+            Associação de fiscais
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li>
+                  <a href="dashboard">Painel</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Eleições 2016</a>
+                </li>
+                <li class="active">lista de fiscais associados</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <!-- wrapper start -->
+    <div class="wrapper">
+
+        <!-- row start -->
+        <div class="row">
+          <div class="col-md-12">
+              <!-- Messages -->
+              <div ng-if="success" class="alert alert-success">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span ng-bind="success"></span>
+              </div>
+              <!-- End Messages -->
+          </div>
+        </div>
+        <!-- row end -->
+
+        <!-- row start -->
+        <div class="row">
+
+          <div class="col-sm-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <!-- row start -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <!-- row start -->
+                    <div class="col-md-6">
+                      <ul class="nav nav-tabs pull-left nav-tabs-hr" data-toggle="tabs">
+                        <li ng-class="{active: tab == 1}">
+                          <a ng-click="setTab(1)" ng-init="setTab(1)">Ativos e associados
+                            <sup class="badge bg-success" ng-bind="associarfiscais.count.ativos"></sup>
+                          </a>
+                        </li>
+                        <li ng-class="{active: tab == 2}">
+                          <a ng-click="setTab(2)">Inativos e não associados
+                            <sup class="badge bg-danger" ng-bind="associarfiscais.count.inativos"></sup>
+                          </a>
+                        </li>
+                        <li ng-if="results.loading">
+                          <i class="fa fa-spin fa-spinner fa-2x"></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- col-md-6 end -->
+                    <!-- row start -->
+                    <div class="col-md-6">
+                      <a href="associar/fiscal/add" class="btn btn-success btn-action btn-sm pull-right addon-btn m-t-20">
+                        <i class="fa fa-plus btn-label"></i> Associar
+                      </a>
+                    </div>
+                    <!-- col-md-6 end -->
+                  </div>
+                  <!-- end col-sm-12 -->
+                </div>
+                <!-- row end -->
+
+                <hr>
+                <!-- divide end -->
+
+                <!-- row start -->
+                <div class="row action-table">
+                  <div class="col-sm-6">
+                    <form class="form-inline">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <input ng-change="search()" 
+                            ng-minlength="3"
+                            ng-model="associarfiscal.search" 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Busca">
+                          <span class="input-group-addon">
+                            <i class="material-icons md-18">search</i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group m-l-10">
+                          <label class="checkbox-custom check-success">
+                            <input type="checkbox" 
+                              ng-true-value="1" 
+                              ng-false-value="0"
+                              ng-model="associarfiscal.searchtype"
+                              id="checkbox-local"> 
+                            <label for="checkbox-local">por local </label>
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- end col-sm-6 -->
+                  <div class="col-sm-6">
+                          <div ng-if="checkedItens.length" class="btn-group pull-right">
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-cog btn-label"></i>Ações&nbsp;&nbsp;
+                              <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li ng-if="tab != 1">
+                                <a ng-click="setStatus(1)">
+                                  <i class="fa fa-unlock drop-down-icon"></i> Ativar</a>
+                              </li>
+                              <li ng-if="tab != 2">
+                                <a ng-click="setStatus(2)">
+                                  <i class="fa fa-lock drop-down-icon"></i> Inativar</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                </div>
+                <!-- row end -->
+
+                <!-- row start -->
+                <div class="row">
+                  <div class="col-md-12">
+                  <div class="table-responsive">
+
+                    <table ng-if="!associarfiscais.results.length" class="table table-striped table-hover">
+                      <tr class="active">
+                        <td>Nenhum resultado carregado</td>
+                      </tr>
+                    </table>
+
+                    <table ng-if="associarfiscais.results.length" class="table table-striped table-hover">
+                      <thead>
+                        <th width="1%">
+                          <input ng-checked="selectedAll" type="checkbox" ng-click="checkAll()" />
+                        </th>
+                        <th width="1%">#</th>
+                        <th width="35%">Fiscal</th>
+                        <th width="15%">
+                          <a href="associar/fiscal" ng-click="sortType = 'cidade'; sortReverse = !sortReverse" title="ordenar">
+                            Cidade
+                            <span ng-show="sortType == 'cidade' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'cidade' && sortReverse" class="fa fa-caret-up"></span>
+                          </a>
+                        </th>
+                        <th width="15%">Local</th>
+                        <th width="5%" class="hidden-xs text-center">
+                          <i class="material-icons md-12 m-t-5">settings</i> Ações
+                        </th>
+                      </thead>
+                      <tbody>
+                        <tr
+                          ng-repeat="associados in associarfiscais.results | orderBy:sortType:sortReverse|filter:searchItem|filter:paginate"
+                          ng-if="associados.fiscais.length">
+                          <td>
+                            <input type="checkbox" ng-model="associados.selected" ng-click="checkItem(associados)" />
+                          </td>
+                          <td ng-bind="$index+1"></td>
+                          <td>
+                            <p class="text-left">
+                              <span ng-bind="fiscal" ng-repeat="fiscal in associados.fiscais"
+                                class="label label-info m-r-5 m-b-10 text-uppercase pull-left">
+                              </span>
+                            </p>
+                          </td>
+                          <td ng-bind="associados.cidade" class="text-uppercase"></td>
+                          <td ng-bind="associados.local"></td>
+                          <td class="text-center" width="12%">
+                            <a class="btn btn-default btn-sm" href="javascript:;" 
+                              ng-click="details(associados)"
+                              tooltips tooltip-title="tip" tooltip-side="top"
+                              title="Detalhes dos associados">
+                              <i class="glyphicon glyphicon-list"></i>
+                            </a> 
+                            <a class="btn btn-info btn-sm" 
+                              href="associar/fiscal/edit/{{associados.id}}"
+                              tooltips tooltip-title="tip" tooltip-side="top"
+                              title="Editar">
+                              <i class="glyphicon glyphicon-pencil"></i>
+                            </a> 
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- end col-sm-12 -->
+                  </div>
+
+                </div>
+                <!-- row end -->
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <uib-pagination total-items="totalItems" 
+                      ng-model="currentPage" 
+                      ng-change="changePaginate()" 
+                      max-size="5" 
+                      boundary-links="true" 
+                      items-per-page="numPerPage" 
+                      class="pagination-sm" 
+                      first-text="«" 
+                      previous-text="‹" 
+                      next-text="›" 
+                      last-text="»">
+                    </uib-pagination>
+                  </div>
+
+                  <div class="col-md-3 col-md-offset-3 text-right">
+                    <span class="pagination-length" ng-bind="'Exibindo ' + associarfiscais.results.length + ' de ' + associarfiscais.count.results + ' registros'"></span>
+                  </div>
+                </div>
+                <!-- end .row -->
+
+              </div>
+            </section>
+          </div>
+          <!-- end col-sm-12 -->
+
+        </div>
+        <!-- row end -->
+
+    </div>
+    <!-- wrapper end -->
+
+    <!-- footer start -->
+    <md-footer></md-footer>
+    <!-- footer end -->
+
+
+</div>
+<!-- body content end-->
+
+</section>
+</div>
+<!-- end section
