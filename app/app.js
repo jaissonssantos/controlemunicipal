@@ -541,6 +541,146 @@ app.config( function($routeProvider, $locationProvider, uiGmapGoogleMapApiProvid
 			}
 		})
 
+        .when('/apuracao/mapavotacao20101turno',{
+            templateUrl: 'views/apuracao/mapavotacao20101turno.html',
+            title: 'app',
+            controller: 'mapaVotacao20101TurnoController',
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name: 'app',
+                        files: [
+                            'app/controllers/api/templateController.js',
+                            'app/controllers/localvotacao/mapaVotacao20101TurnoController.js',
+                            'app/controllers/usuario/passwordChangeUsuarioController.js',
+                            'app/services/autenticarService.js',
+                            'app/services/mapaVotacaoService.js',
+                            'app/services/usuarioService.js',
+                            'assets/css/slidebars.css',
+                            'assets/js/switchery/switchery.min.css',
+                            'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            'assets/js/summernote/dist/summernote.css',
+                            'assets/css/style-responsive.css',
+                            'assets/css/layout-theme-one.css',
+                            'assets/css/material-icons.css'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        .when('/apuracao/mapavotacao20101turnoop',{
+            templateUrl: 'views/apuracao/mapavotacao20101turnoop.html',
+            title: 'app',
+            controller: 'mapaVotacao20101TurnoOpController',
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name: 'app',
+                        files: [
+                            'app/controllers/api/templateController.js',
+                            'app/controllers/localvotacao/mapaVotacao20101TurnoOpController.js',
+                            'app/controllers/usuario/passwordChangeUsuarioController.js',
+                            'app/services/autenticarService.js',
+                            'app/services/mapaVotacaoService.js',
+                            'app/services/usuarioService.js',
+                            'assets/css/slidebars.css',
+                            'assets/js/switchery/switchery.min.css',
+                            'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            'assets/js/summernote/dist/summernote.css',
+                            'assets/css/style-responsive.css',
+                            'assets/css/layout-theme-one.css',
+                            'assets/css/material-icons.css'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        .when('/apuracao/mapavotacao20141turno',{
+            templateUrl: 'views/apuracao/mapavotacao20141turno.html',
+            title: 'app',
+            controller: 'mapaVotacao20141TurnoController',
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name: 'app',
+                        files: [
+                            'app/controllers/api/templateController.js',
+                            'app/controllers/localvotacao/mapaVotacao20141TurnoController.js',
+                            'app/controllers/usuario/passwordChangeUsuarioController.js',
+                            'app/services/autenticarService.js',
+                            'app/services/mapaVotacaoService.js',
+                            'app/services/usuarioService.js',
+                            'assets/css/slidebars.css',
+                            'assets/js/switchery/switchery.min.css',
+                            'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            'assets/js/summernote/dist/summernote.css',
+                            'assets/css/style-responsive.css',
+                            'assets/css/layout-theme-one.css',
+                            'assets/css/material-icons.css'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        .when('/apuracao/mapavotacao20141turnoop',{
+            templateUrl: 'views/apuracao/mapavotacao20141turnoop.html',
+            title: 'app',
+            controller: 'mapaVotacao20141TurnoOpController',
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name: 'app',
+                        files: [
+                            'app/controllers/api/templateController.js',
+                            'app/controllers/localvotacao/mapaVotacao20141TurnoOpController.js',
+                            'app/controllers/usuario/passwordChangeUsuarioController.js',
+                            'app/services/autenticarService.js',
+                            'app/services/mapaVotacaoService.js',
+                            'app/services/usuarioService.js',
+                            'assets/css/slidebars.css',
+                            'assets/js/switchery/switchery.min.css',
+                            'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            'assets/js/summernote/dist/summernote.css',
+                            'assets/css/style-responsive.css',
+                            'assets/css/layout-theme-one.css',
+                            'assets/css/material-icons.css'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        .when('/apuracao/mapavotacao20142turno',{
+            templateUrl: 'views/apuracao/mapavotacao20142turno.html',
+            title: 'app',
+            controller: 'mapaVotacao20142TurnoController',
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                    return $ocLazyLoad.load({
+                        name: 'app',
+                        files: [
+                            'app/controllers/api/templateController.js',
+                            'app/controllers/localvotacao/mapaVotacao20142TurnoController.js',
+                            'app/controllers/usuario/passwordChangeUsuarioController.js',
+                            'app/services/autenticarService.js',
+                            'app/services/mapaVotacaoService.js',
+                            'app/services/usuarioService.js',
+                            'assets/css/slidebars.css',
+                            'assets/js/switchery/switchery.min.css',
+                            'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                            'assets/js/summernote/dist/summernote.css',
+                            'assets/css/style-responsive.css',
+                            'assets/css/layout-theme-one.css',
+                            'assets/css/material-icons.css'
+                        ]
+                    });
+                }]
+            }
+        })
+
         .when('/mapa',{
             templateUrl: 'views/localvotacao/mapa.html',
             title: 'app',

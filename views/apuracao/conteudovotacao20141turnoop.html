@@ -1,0 +1,35 @@
+<div class="popup" class="info-window">
+    <p>Local de Votação: <b>{{parameter.marker.local}}</b></p>
+    <p>Endereço: <b>{{parameter.marker.endereco}}, {{parameter.marker.bairro}}, {{parameter.marker.cidade}}</b></p>
+    <p>QTD Votos: <b>{{parameter.marker.votos}}</b></p>
+    <p>Seções:
+	    <table class="table table-striped table-hover no-margin">
+	        <thead>
+	            <tr>
+	              <th width="2%">#</th>
+	              <th width="23%">Seção</th>
+	              <th width="25%">Tião Viana</th>
+	              <th width="25%">Oposição</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-if="parameter.marker.secoes[0]==''">
+	              <td colspan="5">Nenhuma seção encontrada</td>
+	            </tr>
+	            <tr ng-repeat="fiscal in parameter.marker.secoes" 
+	              ng-if="parameter.marker.secoes[0]!=''">
+	              <td ng-bind="$index+1"></td>
+	              <td ng-bind="fiscal.secao"></td>
+	              <td ng-bind="fiscal.votosM"></td>
+	              <td ng-bind="fiscal.votosE"></td>
+	            </tr>
+	            <tr 
+	              ng-if="parameter.marker.secoes[0]!=''">
+	              <td colspan="2">TOTAL DE VOTOS: </td>
+	              <td><strong>{{parameter.marker.votosMG}}</strong></td>
+	              <td><strong>{{parameter.marker.votosEG}}</strong></td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </p>
+</div>
