@@ -50,7 +50,6 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 			$scope.param.cidade.id = '99';
 			$scope.param.cidade.nome = 'AC';
 		}
-		console.log($scope.param);
 		if(exists && url=='/dashboard') $scope.filter();	
 	});
 
@@ -169,6 +168,10 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 		$scope.prefeitos = undefined;
 		$scope.vereadores = undefined;
 		$scope.quantitativos = undefined;
+		if($scope.param.cidade.id == '99'){
+			$scope.param.cidade.id = '99';
+			$scope.param.cidade.nome = 'AC';
+		}
 	}
 
 	$scope.setTab = function(statusTab) {
