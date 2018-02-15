@@ -127,6 +127,9 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 	$scope.$on("quantitativos", function(event, quantitativos){
 		$scope.quantitativos = quantitativos;
 		switch(parseInt($scope.param.ano)){
+			case 2010:
+				$scope.pvv = $scope.quantitativos.results.governadores[0].nominais;
+			break;
 			case 2014:
 				$scope.pvv = $scope.quantitativos.results.governadores[0].nominais;
 			break;
@@ -148,6 +151,11 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 
 	$scope.loadAno = function(){
 		switch(parseInt($scope.param.ano)){
+			case 2010:
+				$scope.param.cidade.id = '99';
+				$scope.param.cidade.nome = 'AC';
+				$scope.quantitativos = undefined;
+			break;
 			case 2014:
 				$scope.param.cidade.id = '99';
 				$scope.param.cidade.nome = 'AC';
@@ -177,6 +185,47 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 	$scope.setTab = function(statusTab) {
 		$scope.tab = statusTab;
 		switch(parseInt($scope.param.ano)){
+			case 2010:
+				//clear 
+				$scope.candidates = undefined;
+				switch(parseInt(statusTab)){
+					case 1:
+						$scope.presidentes = undefined;
+						$scope.presidente.status = statusTab;
+						$scope.presidente.turno = $scope.param.turno;
+						apuracaoPresidentesService.set($scope.presidente);
+						if(parseInt($scope.param.turno) == 1){
+							apuracaoPresidentesService.getListPresidente2010_1turno();
+						}else{
+							apuracaoPresidentesService.getListPresidente2010_2turno();
+						}
+					break;
+					case 2:
+						$scope.senadores = undefined;
+						$scope.senador.status = statusTab;
+						$scope.senador.turno = $scope.param.turno;
+						$scope.senador.cidade = $scope.param.cidade.nome;
+						apuracaoSenadoresService.set($scope.senador);
+						apuracaoSenadoresService.getListSenador2010_1turno();
+					break;
+					case 3:
+						$scope.dep_federais = undefined;
+						$scope.dep_federal.status = statusTab;
+						$scope.dep_federal.turno = $scope.param.turno;
+						$scope.dep_federal.cidade = $scope.param.cidade.nome;
+						apuracaoDeputadoFederalService.set($scope.dep_federal);
+						apuracaoDeputadoFederalService.getListDeputadoFederal2010_1turno();
+					break;
+					case 4:
+						$scope.dep_estaduais = undefined;
+						$scope.dep_estadual.status = statusTab;
+						$scope.dep_estadual.turno = $scope.param.turno;
+						$scope.dep_estadual.turno = $scope.param.cidade.nome;
+						apuracaoDeputadoEstadualService.set($scope.dep_estadual);
+						apuracaoDeputadoEstadualService.getListDeputadoEstadual2010_1turno();
+					break;
+				}
+			break;
 			case 2014:
 				//clear 
 				$scope.candidates = undefined;
@@ -237,6 +286,37 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 		});
 
 		switch(parseInt($scope.param.ano)){
+			case 2010:
+				//clear itens
+				$scope.candidates = undefined;
+				switch(parseInt($scope.param.turno)){
+					case 1:
+						$scope.vereador.status = $scope.tab;
+						$scope.presidente.cidade = $scope.param.cidade.nome;
+						$scope.governador.cidade = $scope.param.cidade.nome;
+				
+						apuracaoPresidentesService.set($scope.presidente);
+						apuracaoPresidentesService.getListPresidente2010_1turno();
+
+						apuracaoGovernadoresService.set($scope.governador);
+						apuracaoGovernadoresService.getListGovernador2010_1turno();
+						apuracaoQuantitativoService.getList2010_1turno();
+
+						//set tab
+						$scope.setTab($scope.tab);
+					break;
+					case 2:
+						$scope.vereador.status = $scope.tab;
+						$scope.presidente.cidade = $scope.param.cidade.nome;
+						$scope.governador.cidade = $scope.param.cidade.nome;
+				
+						apuracaoPresidentesService.set($scope.presidente);
+						apuracaoPresidentesService.getListPresidente2010_2turno();
+						//set tab
+						$scope.setTab($scope.tab);
+					break;
+				}
+			break;
 			case 2014:
 				//clear itens
 				$scope.candidates = undefined;
