@@ -1148,6 +1148,41 @@ app.config( function($routeProvider, $locationProvider, uiGmapGoogleMapApiProvid
             }
         )
 
+        .when('/apuracao/2010cargogeral',
+            { 
+                templateUrl: 'views/apuracao/2010CargoGeral.html',
+                controller: 'apuracao2010CargoGeralController',
+                resolve: {
+                    lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+                        return $ocLazyLoad.load({
+                            name: 'app', /*name module(YourModuleApp)*/
+                            files: [
+                                'app/controllers/api/templateController.js',
+                                'app/controllers/apuracao/apuracao2010CargoGeralController.js',
+                                'app/controllers/usuario/passwordChangeUsuarioController.js',
+                                'app/services/autenticarService.js',
+                                'app/services/cidadeService.js',
+                                'app/services/governadorCandidatoService.js',
+                                'app/services/presidenteCandidatoService.js',
+                                'app/services/senadorCandidatoService.js',
+                                'app/services/deputadoCandidatoService.js',
+                                'app/services/apuracao2010Service.js',
+                                'app/services/usuarioService.js',
+                                'assets/css/slidebars.css',
+                                'assets/css/candidate.css',
+                                'assets/js/switchery/switchery.min.css',
+                                'assets/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+                                'assets/js/summernote/dist/summernote.css',
+                                'assets/css/style-responsive.css',
+                                'assets/css/layout-theme-one.css',
+                                'assets/css/material-icons.css'
+                            ]
+                        });
+                    }]
+                }
+            }
+        )
+
         .when('/apuracao/2014cargogeral',
             { 
                 templateUrl: 'views/apuracao/2014CargoGeral.html',

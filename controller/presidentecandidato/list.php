@@ -13,11 +13,14 @@ try {
 	$turno = isset($params->turno) ? 
 						$params->turno
 						: 1;
+	$tabela = isset($params->ano) ? 
+						'eleicoes'. $params->ano .'apuracao'
+						: 'eleicoes2014apuracao';
 
 	$stmt = $oConexao->prepare(
 		'SELECT
 			el.numerovotavel,el.nomevotavel,el.partido
-		FROM eleicoes2014apuracao el, cidade c		
+		FROM '. $tabela .' el, cidade c		
 		WHERE 
 			c.id=:cidade
 		AND 
