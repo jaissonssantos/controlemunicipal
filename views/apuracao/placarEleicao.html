@@ -54,6 +54,7 @@
                                         class="form-control"
                                         ng-change="loadAno();"
                                         required>
+                                        <option ng-value="2010">2010</option>
                                         <option ng-value="2014">2014</option>
                                         <option ng-value="2016" ng-selected="param.ano == 2016">2016</option>
                                     </select>
@@ -67,7 +68,7 @@
                                         name="turno"
                                         class="form-control"
                                         ng-model="param.turno"
-                                        ng-disabled="param.ano == 2016"
+                                        ng-disabled="param.ano == 2016 || param.ano == 2010"
                                         required>
                                         <option ng-value="1" ng-selected="param.ano == 2014">1º</option>
                                         <option ng-value="2">2º</option>

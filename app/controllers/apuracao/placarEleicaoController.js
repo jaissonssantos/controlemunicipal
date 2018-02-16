@@ -46,7 +46,7 @@ app.controller('placarEleicaoController', ['$rootScope', '$scope', 'cidadeServic
 					exists++;
 				}
 			});
-		}else if($scope.param.ano == 2014){
+		}else if($scope.param.ano == 2014 || $scope.param.ano == 2010){
 			$scope.param.cidade.id = '99';
 			$scope.param.cidade.nome = 'AC';
 		}
