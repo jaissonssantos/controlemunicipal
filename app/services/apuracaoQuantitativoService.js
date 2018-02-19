@@ -7,9 +7,9 @@ app.service('apuracaoQuantitativoService', ['$rootScope', '$http', function($roo
     $rootScope.$broadcast("quantitativo", quantitativo);
   };
 
-  this.getList2016_1turno = function(){
+  this.getList2010_1turno = function(){
     $rootScope.$broadcast("quantitativos:loading", true);
-    $http.post('controller/apuracao/1turnoQuantitativo', self.quantitativo)
+    $http.post('controller/apuracao/2010_1turnoQuantitativo', self.quantitativo)
     .success(function(response){
       $rootScope.$broadcast("quantitativos:loading", false);
       $rootScope.$broadcast("quantitativos", response);
@@ -23,6 +23,19 @@ app.service('apuracaoQuantitativoService', ['$rootScope', '$http', function($roo
   this.getList2014_1turno = function(){
     $rootScope.$broadcast("quantitativos:loading", true);
     $http.post('controller/apuracao/2014_1turnoQuantitativo', self.quantitativo)
+    .success(function(response){
+      $rootScope.$broadcast("quantitativos:loading", false);
+      $rootScope.$broadcast("quantitativos", response);
+    })
+    .error(function(response){
+      $rootScope.$broadcast("quantitativos:loading", false);
+      $rootScope.$broadcast("quantitativos", response);
+    });
+  };
+
+  this.getList2016_1turno = function(){
+    $rootScope.$broadcast("quantitativos:loading", true);
+    $http.post('controller/apuracao/1turnoQuantitativo', self.quantitativo)
     .success(function(response){
       $rootScope.$broadcast("quantitativos:loading", false);
       $rootScope.$broadcast("quantitativos", response);

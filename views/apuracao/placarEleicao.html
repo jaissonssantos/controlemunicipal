@@ -68,9 +68,9 @@
                                         name="turno"
                                         class="form-control"
                                         ng-model="param.turno"
-                                        ng-disabled="param.ano == 2016 || param.ano == 2010"
+                                        ng-disabled="param.ano == 2016"
                                         required>
-                                        <option ng-value="1" ng-selected="param.ano == 2014">1º</option>
+                                        <option ng-value="1" ng-selected="param.ano == 2014 || param.ano == 2010">1º</option>
                                         <option ng-value="2">2º</option>
                                     </select>
                                 </div>
@@ -88,7 +88,7 @@
                                         class="form-control"
                                         required>
                                         <option ng-value="99" 
-                                            ng-selected="param.ano == 2014" 
+                                            ng-selected="param.ano == 2014 || param.ano == 2010" 
                                             ng-disabled="param.ano == 2016">Acre</option>
                                         <option ng-selected="param.ano == c.id" ng-repeat="c in cidade" value="{{c.id}}" >{{ c.nome }}</option>
                                     </select>

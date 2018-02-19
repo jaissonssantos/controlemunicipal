@@ -7,6 +7,32 @@ app.service('apuracaoPresidentesService', ['$rootScope', '$http', function($root
     $rootScope.$broadcast("presidente", presidente);
   };
 
+  this.getListPresidente2010_1turno = function(){
+    $rootScope.$broadcast("presidentes:loading", true);
+    $http.post('controller/apuracao/2010_1turnoPresidentes', self.presidente)
+    .success(function(response){
+      $rootScope.$broadcast("presidentes:loading", false);
+      $rootScope.$broadcast("presidentes", response);
+    })
+    .error(function(response){
+      $rootScope.$broadcast("presidentes:loading", false);
+      $rootScope.$broadcast("presidentes", response);
+    });
+  };
+
+  this.getListPresidente2010_2turno = function(){
+    $rootScope.$broadcast("presidentes:loading", true);
+    $http.post('controller/apuracao/2010_2turnoPresidentes', self.presidente)
+    .success(function(response){
+      $rootScope.$broadcast("presidentes:loading", false);
+      $rootScope.$broadcast("presidentes", response);
+    })
+    .error(function(response){
+      $rootScope.$broadcast("presidentes:loading", false);
+      $rootScope.$broadcast("presidentes", response);
+    });
+  };
+
   this.getListPresidente2014_1turno = function(){
     $rootScope.$broadcast("presidentes:loading", true);
     $http.post('controller/apuracao/2014_1turnoPresidentes', self.presidente)
