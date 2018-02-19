@@ -15,7 +15,7 @@ try {
 						' AND 
 							partido="'. $params->partido . '"'
 						: ' AND 
-                            partido IN("PMDB","PC do B","PP","PT","PDT","PRB","DEM","PSD","PSDB","PRP","PSC","PMB","PR","PSB","PSDC","PTC","PROS","PHS","PEN","PSOL")';
+                            partido IN("PMDB","PC do B","PP","PT","PDT","PRB","DEM","PCB","PC","PPL","PPS","PSD","PSL","PSTU","PRTB","PSDB","PTB","PRP","PTC","PSC","SD","PV","PMB","PR","PSB","PSDC","PTC","PROS","PHS","PEN","PSOL")';
     $cargo = isset($params->cargo) ? 
                         $params->cargo
                         : null;
