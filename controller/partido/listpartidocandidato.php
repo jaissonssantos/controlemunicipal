@@ -13,10 +13,13 @@ try {
 	$turno = isset($params->turno) ? 
 						$params->turno
 						: 1;
+	$ano = isset($params->ano)? 
+						'eleicoes'.$params->ano.'apuracao'
+						: 'eleicoes2014apuracao';
 
 	$stmt = $oConexao->prepare(
 		'SELECT partido
-        FROM eleicoes2014apuracao
+        FROM '.$ano.'
         WHERE 
             cargo=:cargo
         AND

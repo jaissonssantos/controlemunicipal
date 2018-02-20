@@ -36,6 +36,7 @@ app.controller('apuracao2010PartidoController', ['$rootScope', '$scope', 'cidade
     $scope.loadPartidos = function(){
 		$scope.partido.cargo = $scope.param.cargo;
 		$scope.partido.turno = $scope.param.turno;
+		$scope.partido.ano = 2010;
         partidoService.set($scope.partido);
 		partidoService.getList2014PartidoCandidato();
 	};

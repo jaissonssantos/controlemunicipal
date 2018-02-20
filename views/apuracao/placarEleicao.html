@@ -152,8 +152,91 @@
                                 </div>
                             </div>
 
+                            <!-- ELEICÃO 2010 -->
                             <div class="col-md-6 m-t-35 m-b-30 avatares" 
-                                ng-if="quantitativos.results.governadores">
+                                ng-if="quantitativos.results.governadores && param.ano == 2010">
+
+                                <div class="loading" ng-if="results.governador_loading">
+                                    <img src="assets/img/spinner.gif">
+                                    <p>Aguarde, processando...</p>
+                                </div>
+
+                                <div class="components" ng-if="!results.governador_loading">
+                                    <h4 class="sub-title-candidate">GOVERNADORES</h4>
+                                    <div class="box"
+                                    ng-repeat="governador in governadores.results">
+                                        <div class="candidate-avatar-type-big avatar-left"
+                                            ng-if="$index==0">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/acre/2010/acre_{{governador.numerovotavel}}.png"/>
+                                            </div>
+                                            <div class="candidate-status"
+                                                ng-if="governador.eleito==1">ELEITO</div>
+                                            <div class="candidate-status"
+                                                ng-if="governador.eleito==2">REELEITO</div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((governador.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name" 
+                                                ng-bind="governador.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="governador.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="governador.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                        <div class="candidate-avatar-type-big avatar-right"
+                                            ng-if="$index==1">
+                                            <div class="candidate-mask">
+                                                <img class="candidate-image" 
+                                                    ng-src="assets/candidate/acre/2010/acre_{{governador.numerovotavel}}.png"/>
+                                            </div>
+                                            <div class="candidate-votes">
+                                                <span 
+                                                    ng-bind="((governador.votos*100)/pvv|number:2)"></span>
+                                                <span class="percent">%</span>
+                                            </div>
+                                            <div class="candidate-name"
+                                                ng-bind="governador.nomevotavel"></div>
+                                            <div class="candidate-party situation-2"
+                                                ng-bind="governador.partido"></div>
+                                            <div class="candidate-total-votes">
+                                                <span ng-bind="governador.votos|number:0"></span> 
+                                                <span class="candidate-total-votes-label">votos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="avatares-bg"></div>
+                                    <div class="list-content">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr ng-repeat="governador in governadores.results"
+                                                    ng-if="$index>=2 && $index<=6">
+                                                    <td>
+                                                        <div class="candidate-mask">
+                                                            <img class="candidate-image" 
+                                                                ng-src="assets/candidate/acre/2010/acre_{{governador.numerovotavel}}.png"/>
+                                                        </div>
+                                                    </td>
+                                                    <td ng-bind="governador.nomevotavel"></td>
+                                                    <td ng-bind="governador.partido"></td>
+                                                    <td ng-bind="governador.votos|number:0"></td>
+                                                    <td ng-bind="((governador.votos*100)/pvv|number:2)+'%'"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ELEICÃO 2010 -->
+
+                            <!-- ELEICÃO 2014 -->
+                            <div class="col-md-6 m-t-35 m-b-30 avatares" 
+                                ng-if="quantitativos.results.governadores && param.ano == 2014">
 
                                 <div class="loading" ng-if="results.governador_loading">
                                     <img src="assets/img/spinner.gif">
@@ -231,6 +314,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ELEICÃO 2014 -->
+
                             <div class="col-md-6 m-t-35 m-b-30 avatares" 
                                 ng-if="quantitativos.results.governadores">
                                 <h4 class="sub-title-candidate">PRESIDENTES/SENADORES/DEPUTADOS</h4>
