@@ -59,4 +59,17 @@ app.service('apuracao2014Service', ['$rootScope', '$http', function($rootScope, 
     });
   };
 
+  this.getListCargoRegional = function(){
+    $rootScope.$broadcast("resultados:loading", true);
+    $http.post('controller/apuracao/2014CargoRegional', self.field)
+    .success(function(response){
+      $rootScope.$broadcast("resultados:loading", false);
+      $rootScope.$broadcast("resultados", response);
+    })
+    .error(function(response){
+      $rootScope.$broadcast("resultados:loading", false);
+      $rootScope.$broadcast("resultados", response);
+    });
+  };
+
 }]);
