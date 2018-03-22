@@ -61,7 +61,7 @@ app.service('apuracao2014Service', ['$rootScope', '$http', function($rootScope, 
 
   this.getListCargoRegional = function(){
     $rootScope.$broadcast("resultados:loading", true);
-    $http.post('controller/apuracao/2014CargoRegional', self.field)
+    $http.post('controller/apuracao/2014_' + self.field.regional + '_' + self.field.cargo + '.json', self.field)
     .success(function(response){
       $rootScope.$broadcast("resultados:loading", false);
       $rootScope.$broadcast("resultados", response);

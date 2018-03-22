@@ -15,7 +15,7 @@
 
     <div class="page-head">
         <h3 class="m-b-less text-uppercase">
-            Prefeito por regional
+            Cargo por regional
         </h3>
         <div class="state-information">
             <ol class="breadcrumb m-b-less bg-less">
@@ -49,8 +49,6 @@
                                       name="turno"
                                       class="form-control"
                                       ng-model="param.turno"
-                                      ng-change="loadCandidatos();"
-                                      ng-disabled="param.cidade === undefined"
                                       required>
                                       <option value="1">1º</option>
                                       <option value="2">2º</option>
@@ -70,7 +68,7 @@
                                       class="form-control"
                                       ng-model="param.cargo"
                                       ng-change="loadCandidatos();"
-                                      ng-disabled="param.cidade === undefined || param.turno === undefined"
+                                      ng-disabled="param.turno === undefined"
                                       required>
                                       <option value="PRESIDENTE">PRESIDENTE</option>
                                       <option value="GOVERNADOR">GOVERNADOR</option>
@@ -86,27 +84,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Candidato</label>
-                                <div class="col-md-6">
-                                   <select
-                                      name="candidato"
-                                      class="form-control"
-                                      ng-model="param.candidato"
-                                      ng-options="i.numerovotavel as i.nomevotavel for i in candidatos"
-                                      ng-disabled="param.cidade === undefined || param.turno === undefined"
-                                      required>
-                                      <option value="">Selecione um candidato</option>
-                                    </select>
-                                    <span ng-if="apuracaoForm.candidato.$touched && apuracaoForm.candidato.$dirty" 
-                                      class="input-dirty-touched">
-                                        <i ng-class="apuracaoForm.candidato.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
-                                    </span>
-                                    <i ng-if="results.presidente_loading || results.governador_loading || results.senador_loading || results.deputado_loading" 
-                                        class="fa fa-spin fa-spinner m-l-10 input-dirty-touched"></i>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Regional</label>
                                 <div class="col-md-6">
                                     <select
@@ -114,6 +91,7 @@
                                         id="regional"
                                         class="form-control"
                                         ng-model="param.regional"
+                                        ng-disabled="param.turno === undefined"
                                         required>
                                         <option value="1">Belo Jardim</option>
                                         <option value="2">Cadeia Velha</option>
@@ -169,8 +147,8 @@
                         <div class="row" ng-if="prefeitos.results">
                            <div class="col-md-12">
                                <div class="logo-item text-left text-uppercase">
-                                    <h3 class="text-uppercase">Relatório prefeito por regional(Fonte: TSE)</h3>
-                                    <h5 class="text-uppercase">Controle Municipal 2016</h5>
+                                    <h3 class="text-uppercase">Relatório cargo por regional(Fonte: TSE)</h3>
+                                    <h5 class="text-uppercase">Controle Municipal</h5>
                                 </div>
                            </div>
                         </div>

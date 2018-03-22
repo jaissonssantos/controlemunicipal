@@ -1,8 +1,7 @@
 
-app.controller('apuracao2014CargoRegionalController', ['$rootScope', '$scope', 'cidadeService', 'apuracao2014Service',
-		function($rootScope, $scope, cidadeService, apuracao2014Service){
+app.controller('apuracao2014CargoRegionalController', ['$rootScope', '$scope', 'apuracao2014Service', 'governadorCandidatoService','presidenteCandidatoService', 'senadorCandidatoService', 'deputadoCandidatoService',
+		function($rootScope, $scope, apuracao2014Service ,governadorCandidatoService, presidenteCandidatoService, senadorCandidatoService, deputadoCandidatoService){
 
-	$scope.cidade = $scope.cidades = {};
 	$scope.candidato = $scope.candidatos = {};
 	$scope.field = $scope.fields = {};
 	$scope.resultado = $scope.resultados = {};
@@ -18,7 +17,6 @@ app.controller('apuracao2014CargoRegionalController', ['$rootScope', '$scope', '
 	$scope.$on("resultados:loading", function(event, status){
 	    $scope.results.loading = status;
 	});
-
 
 	$scope.filter = function(){
 		$scope.fields=undefined;
