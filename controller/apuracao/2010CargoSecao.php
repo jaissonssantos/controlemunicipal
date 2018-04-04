@@ -25,7 +25,7 @@ try {
 
 	$stmt = $oConexao->prepare(
 		'SELECT lv.id,lv.local,lv.endereco,b.nome as bairro
-		FROM localvotacao lv
+		FROM localvotacao2010 lv
 		LEFT JOIN bairro b ON(lv.bairro=b.id)
 		WHERE 
 			lv.idmunicipio=:cidade
@@ -47,7 +47,7 @@ try {
 
 	$stmt = $oConexao->prepare(
 		'SELECT secao,zona
-		FROM localvotacao lv
+		FROM localvotacao2010 lv
 		WHERE 
 			lv.idmunicipio=:cidade
 		AND 
