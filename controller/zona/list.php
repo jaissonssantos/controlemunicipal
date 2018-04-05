@@ -10,10 +10,13 @@ try {
 	$cidade = isset($params->cidade) ?
 						$params->cidade
 						: 16;
+	$ano = isset($params->ano) ?
+						$params->ano
+						: '';
 
 	$stmt = $oConexao->prepare(
 		'SELECT zona
-		FROM localvotacao lv
+		FROM localvotacao'. $ano .' lv
 		WHERE 
 			lv.idmunicipio=:cidade
 		GROUP BY zona'

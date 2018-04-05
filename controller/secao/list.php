@@ -13,10 +13,13 @@ try {
 	$zona = isset($params->zona) ?
 						$params->zona
 						: null;
+	$ano = isset($params->ano) ?
+						$params->ano
+						: '';
 
 	$stmt = $oConexao->prepare(
 		'SELECT secao,zona
-		FROM localvotacao lv
+		FROM localvotacao'. $ano .' lv
 		WHERE 
 			lv.idmunicipio=:cidade
 		AND
