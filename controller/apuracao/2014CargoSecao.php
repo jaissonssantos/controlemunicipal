@@ -53,7 +53,7 @@ try {
 		AND 
 			lv.zona=:zona
 		AND
-			lv.secao=:secao
+			lv.secao IN(:secao)
 		'
 	);
 

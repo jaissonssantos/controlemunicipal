@@ -26,7 +26,7 @@ try {
 	$stmt = $oConexao->prepare(
 		'SELECT lv.id,lv.local,lv.endereco,b.nome as bairro
 		FROM localvotacao2010 lv
-		LEFT JOIN bairro b ON(lv.bairro=b.id)
+		LEFT JOIN bairro b ON(lv.bairro=b.nome)
 		WHERE 
 			lv.idmunicipio=:cidade
 		AND
@@ -53,7 +53,7 @@ try {
 		AND 
 			lv.zona=:zona
 		AND
-			lv.secao=:secao
+			lv.secao IN(:secao)
 		'
 	);
 
@@ -107,7 +107,7 @@ try {
 			$results_secao = $stmt_secao->fetchAll(PDO::FETCH_ASSOC);
 			$x=0;
 			foreach ($results_secao as $s) {
-				if($s['votos']!=null){
+				if($s['votos']!=null || $s['votos']!= ''){
 					$secao['candidato'][$i]['nome'][$x] = $s['nomevotavel'];
 					$secao['candidato'][$i]['votos'][$x] = $s['votos'];
 					$x++;

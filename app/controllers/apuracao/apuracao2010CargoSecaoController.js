@@ -45,6 +45,7 @@ app.controller('apuracao2010CargoSecaoController', ['$rootScope', '$scope', 'cid
 
 	$scope.loadZonas = function(){
 		$scope.zona.cidade = $scope.param.cidade;
+		$scope.zona.ano = 2010;
 		zonaService.set($scope.zona);
 		zonaService.getList();
 	};
@@ -52,6 +53,7 @@ app.controller('apuracao2010CargoSecaoController', ['$rootScope', '$scope', 'cid
 	$scope.loadSecoes = function(){
 		$scope.secao.cidade = $scope.param.cidade;
 		$scope.secao.zona = $scope.param.zona;
+		$scope.secao.ano = 2010;
 		secaoService.set($scope.secao);
 		secaoService.getList();	
 	}

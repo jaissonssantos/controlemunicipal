@@ -24,7 +24,7 @@ try {
 			lv.idmunicipio=:cidade
 		AND
 			zona=:zona
-		GROUP BY secao'
+		GROUP BY secao ASC'
 	);
 
 	$stmt->bindParam('cidade', $cidade, PDO::PARAM_STR);

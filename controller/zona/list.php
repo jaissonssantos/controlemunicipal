@@ -19,7 +19,7 @@ try {
 		FROM localvotacao'. $ano .' lv
 		WHERE 
 			lv.idmunicipio=:cidade
-		GROUP BY zona'
+		GROUP BY zona ASC'
 	);
 
 	$stmt->bindParam('cidade', $cidade, PDO::PARAM_STR);
